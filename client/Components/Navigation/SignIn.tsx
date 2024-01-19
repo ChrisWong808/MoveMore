@@ -1,110 +1,112 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Input, Button } from 'react-native-elements';
-import { getAuth, signInWithEmailAndPassword, Auth } from 'firebase/auth';
+//switch trainer to client and vise versa
 
-const auth: Auth = getAuth();
+// import React, { useState } from 'react';
+// import { StyleSheet, Text, View, Dimensions } from 'react-native';
+// import { Input, Button } from 'react-native-elements';
+// import { getAuth, signInWithEmailAndPassword, Auth } from 'firebase/auth';
 
-const width = Dimensions.get('window').width;
+// const auth: Auth = getAuth();
 
-interface SignInState {
-  email: string;
-  password: string;
-  error: string;
-}
+// const width = Dimensions.get('window').width;
 
-const SignIn: React.FC = () => {
-  const [value, setValue] = useState<SignInState>({
-    email: '',
-    password: '',
-    error: '',
-  });
+// interface SignInState {
+//   email: string;
+//   password: string;
+//   error: string;
+// }
 
-  async function signIn() {
-    if (value.email === '' || value.password === '') {
-      setValue({
-        ...value,
-        error: 'Email and password are mandatory.',
-      });
-      return;
-    }
+// const SignIn: React.FC = () => {
+//   const [value, setValue] = useState<SignInState>({
+//     email: '',
+//     password: '',
+//     error: '',
+//   });
 
-    try {
-      await signInWithEmailAndPassword(auth, value.email, value.password);
-    } catch (error) {
-      setValue({
-        ...value,
-        error: error.message,
-      });
-    }
-  }
+//   async function signIn() {
+//     if (value.email === '' || value.password === '') {
+//       setValue({
+//         ...value,
+//         error: 'Email and password are mandatory.',
+//       });
+//       return;
+//     }
 
-  return (
-    <View style={styles.container}>
-      {!!value.error && (
-        <View style={styles.error}>
-          <Text>{value.error}</Text>
-        </View>
-      )}
+//     try {
+//       await signInWithEmailAndPassword(auth, value.email, value.password);
+//     } catch (error) {
+//       setValue({
+//         ...value,
+//         error: error.message,
+//       });
+//     }
+//   }
 
-      <View style={styles.controls}>
-        <Input
-          placeholder="Email"
-          containerStyle={styles.control}
-          value={value.email}
-          onChangeText={(text) => setValue({ ...value, email: text })}
-          style={{ color: 'white' }}
-        />
+//   return (
+//     <View style={styles.container}>
+//       {!!value.error && (
+//         <View style={styles.error}>
+//           <Text>{value.error}</Text>
+//         </View>
+//       )}
 
-        <Input
-          placeholder="Password"
-          containerStyle={styles.control}
-          value={value.password}
-          onChangeText={(text) => setValue({ ...value, password: text })}
-          secureTextEntry={true}
-          style={{ color: 'white' }}
-        />
+//       <View style={styles.controls}>
+//         <Input
+//           placeholder="Email"
+//           containerStyle={styles.control}
+//           value={value.email}
+//           onChangeText={(text) => setValue({ ...value, email: text })}
+//           style={{ color: 'white' }}
+//         />
 
-        <Button
-          title="Sign in"
-          buttonStyle={styles.buttonControl}
-          onPress={signIn}
-        />
-      </View>
-    </View>
-  );
-};
+//         <Input
+//           placeholder="Password"
+//           containerStyle={styles.control}
+//           value={value.password}
+//           onChangeText={(text) => setValue({ ...value, password: text })}
+//           secureTextEntry={true}
+//           style={{ color: 'white' }}
+//         />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    backgroundColor: '#36393e',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+//         <Button
+//           title="Sign in"
+//           buttonStyle={styles.buttonControl}
+//           onPress={signIn}
+//         />
+//       </View>
+//     </View>
+//   );
+// };
 
-  controls: {
-    flex: 1,
-  },
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: 20,
+//     backgroundColor: '#36393e',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
 
-  control: {
-    marginTop: 10,
-    width: width * 0.8,
-  },
+//   controls: {
+//     flex: 1,
+//   },
 
-  buttonControl: {
-    marginTop: 10,
-    width: width * 0.8,
-    backgroundColor: '#7289da',
-  },
+//   control: {
+//     marginTop: 10,
+//     width: width * 0.8,
+//   },
 
-  error: {
-    marginTop: 10,
-    padding: 10,
-    color: '#fff',
-    backgroundColor: '#D54826FF',
-  },
-});
+//   buttonControl: {
+//     marginTop: 10,
+//     width: width * 0.8,
+//     backgroundColor: '#7289da',
+//   },
 
-export default SignIn;
+//   error: {
+//     marginTop: 10,
+//     padding: 10,
+//     color: '#fff',
+//     backgroundColor: '#D54826FF',
+//   },
+// });
+
+// export default SignIn;
