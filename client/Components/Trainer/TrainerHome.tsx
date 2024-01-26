@@ -1,22 +1,58 @@
-import { General } from "./../../assets/css"
-import { StyleSheet, TextInput, Text, View, Button, Alert, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import * as React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import TrainerProfile from './TrainerProfile';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 
-
-export default function TrainerHome() {
-
-  const navigation = useNavigation();
-
-  return (
-      <View style={General.mainContainer}>
+function TrainerHomeContent (navigation) {
+      return (
+        <View>
         <Text>Trainer Home</Text>
         <Text>Calendar Goes Here</Text>
-        <View style={{ width: 250 }}>
-        <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
-        <Text>Update check 2</Text>
-        <Button title="Temp to Profile should be inside Drawer" onPress={() => navigation.navigate('TrainerProfile')} />
       </View>
-      </View>
-
-  )
+      )
 }
+
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Close drawer"
+        onPress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}
+      />
+      <DrawerItem
+        label="Toggle drawer"
+        onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+      />
+    </DrawerContentScrollView>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      initialRouteName="Home"
+    >
+      <Drawer.Screen name="Home" component={TrainerHomeContent} />
+      <Drawer.Screen name="Trainer Profile" component={TrainerProfile} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function TrainerHome() {
+  return (
+
+      <MyDrawer />
+  );
+}
+

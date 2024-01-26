@@ -14,13 +14,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <View style={General.mainContainer}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="root">
-          <Stack.Screen name="root" component={RootNavigation} />
-          <Stack.Screen name="TrainerHome" component={TrainerHome} />
-          <Stack.Screen name="TrainerProfile" component={TrainerProfile} />
-        </Stack.Navigator>
-      </NavigationContainer>
+        <RootNavigation/>
   </View>
   );
 }
