@@ -1,6 +1,20 @@
 import { StyleSheet, TextInput, Text, ScrollView, View, Button, Alert, Image, FlatList, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Picker } from '@react-native-picker/picker';
+import { SelectList } from 'react-native-dropdown-select-list'
+
+// const [selected, setSelected] = React.useState("");
+
+// const data = [
+//     {key:'1', value:'Mobiles', disabled:true},
+//     {key:'2', value:'Appliances'},
+//     {key:'3', value:'Cameras'},
+//     {key:'4', value:'Computers', disabled:true},
+//     {key:'5', value:'Vegetables'},
+//     {key:'6', value:'Diary Products'},
+//     {key:'7', value:'Drinks'},
+// ]
+
 
 const styles = StyleSheet.create({
   input: {
@@ -59,6 +73,11 @@ export default function TrainerServices(props) {
                     <Picker.Item key={i} label={activity} value={activity} />
                   ))}
                 </Picker> */}
+                  {/* <SelectList
+                    setSelected={(val) => setSelected(val)}
+                    data={data}
+                    save="value"
+                  /> */}
                  <TouchableOpacity
                   onPress={() => {
                     // Add your logic to handle the press event and open the Picker

@@ -1,21 +1,19 @@
-import WeekView from 'react-native-week-view';
+import React from 'react';
+import { Calendar } from 'react-native-big-calendar'
 
-const myEvents = [
- {
- id: 1,
- description: 'Event',
- startDate: new Date(2021, 3, 15, 12, 0),
- endDate: new Date(2021, 3, 15, 12, 30),
- color: 'blue',
- // ... more properties if needed,
- },
- // More events...
-];
+const events = [
+  {
+    title: 'Meeting',
+    start: new Date(2020, 1, 11, 10, 0),
+    end: new Date(2020, 1, 11, 10, 30),
+  },
+  {
+    title: 'Coffee break',
+    start: new Date(2020, 1, 11, 15, 45),
+    end: new Date(2020, 1, 11, 16, 30),
+  },
+]
 
-const MyComponent = () => (
- <WeekView
- events={myEvents}
- selectedDate={new Date(2021, 3, 15)}
- numberOfDays={7}
- />
-);
+export default function PlanningCalendar() {
+  return <Calendar events={events} height={600} />
+}

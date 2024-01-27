@@ -1,25 +1,26 @@
-import * as React from 'react';
-import { View, Text, Button } from 'react-native';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
-import TrainerProfile from './TrainerProfile';
+import * as React from 'react'
+import { View, Text, Button } from 'react-native'
+import { NavigationContainer, DrawerActions } from '@react-navigation/native'
+import TrainerProfile from './TrainerProfile'
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
+  DrawerItem
+} from '@react-navigation/drawer'
+import PlanningCalendar from '../PlanningCalendar'
 
 function TrainerHomeContent (navigation) {
-      return (
+  return (
         <View>
         <Text>Trainer Home</Text>
         <Text>Calendar Goes Here</Text>
+        <PlanningCalendar></PlanningCalendar>
       </View>
-      )
+  )
 }
 
-
-function CustomDrawerContent(props) {
+function CustomDrawerContent (props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -32,12 +33,12 @@ function CustomDrawerContent(props) {
         onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
       />
     </DrawerContentScrollView>
-  );
+  )
 }
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator()
 
-function MyDrawer() {
+function MyDrawer () {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -46,13 +47,12 @@ function MyDrawer() {
       <Drawer.Screen name="Home" component={TrainerHomeContent} />
       <Drawer.Screen name="Trainer Profile" component={TrainerProfile} />
     </Drawer.Navigator>
-  );
+  )
 }
 
-export default function TrainerHome() {
+export default function TrainerHome () {
   return (
 
       <MyDrawer />
-  );
+  )
 }
-
