@@ -2,6 +2,8 @@ import { General } from "./../../assets/css"
 import { StyleSheet, TextInput, Text, ScrollView, View, Button, Alert, Image, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { Picker } from '@react-native-picker/picker';
+import TrainerServices from "./TrainerServices";
 
 export default function TrainerProfile() {
 
@@ -19,7 +21,6 @@ const [reviews, setReviews] = React.useState('Reviews auto populate here');
 const presetTags = ['Basketball', 'Tennis', 'Soccer', 'Volleyball'];
 const images = [require('./../../assets/pics/profile.png'), require('./../../assets/pics/equipment1.png'), require('./../../assets/pics/equipment2.png'),/* Add more images here */];
 
-
 const styles = StyleSheet.create({
   input: {
     height: 40,
@@ -31,6 +32,10 @@ const styles = StyleSheet.create({
   label: {
     marginTop: 10,
     marginBottom: 5,
+  },
+  scrollViewContent: {
+    // Ensure that the height is enough to accommodate all your components
+    minHeight: '100%', // or a specific height
   },
   carouselContainer: {
     height: 200, // Set the height as needed
@@ -121,7 +126,7 @@ const handleInputChange = (key: string, value: string) => {
 };
 
   return (
-      <ScrollView contentContainerStyle={General.mainContainer}>
+    <ScrollView contentContainerStyle={[styles.scrollViewContent]}>
         <Text>Trainer Profile</Text>
         <Button title={editing ? "Save" : "Edit"} onPress={editTrainerProfile} />
       <Carousel
@@ -192,6 +197,16 @@ const handleInputChange = (key: string, value: string) => {
           editable={editing}
         />
       </View>
+      {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={[styles.label, { marginRight: 5 }]}>Services:</Text>
+        <TextInput
+          style={styles.input}
+          value={services}
+          placeholder="Enter Services"
+          onChangeText={(text) => handleInputChange('services', text)}
+          editable={editing}
+        />
+      </View> */}
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={[styles.label, { marginRight: 5 }]}>Services:</Text>
         <TextInput
@@ -202,6 +217,7 @@ const handleInputChange = (key: string, value: string) => {
           editable={editing}
         />
       </View>
+      <TrainerServices {...{ editing, selectedTags }}/>
       <TextInput
         style={styles.input}
         value={serviceDescription}
