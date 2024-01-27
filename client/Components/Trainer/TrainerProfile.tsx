@@ -1,21 +1,24 @@
 import { General } from "./../../assets/css"
 import { StyleSheet, TextInput, Text, ScrollView, View, Button, Alert, Image, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 export default function TrainerProfile() {
 
 const [editing, setEditing] = useState(false); // Track if the user is in edit mode
-const [name, setName] = React.useState('Name');
-const [tags, setTags] = React.useState('Tags');
+const [carouselIndex, setCarouselIndex] = useState(0);
+const [name, setName] = React.useState('');
 const [selectedTags, setSelectedTags] = React.useState([] as string[]);
-const [equipment, setEquipment] = React.useState('Equipment');
-const [credentials, setCredentials] = React.useState('Credentials');
-const [socials, setSocials] = React.useState('socials');
-const [services, setServices] = React.useState('Services');
-const [serviceDescription, setServiceDescription] = React.useState('ServiceDescription');
-const [reviews, setReviews] = React.useState('Reviews');
+const [equipment, setEquipment] = React.useState('');
+const [credentials, setCredentials] = React.useState('');
+const [socials, setSocials] = React.useState('');
+const [services, setServices] = React.useState('');
+const [serviceDescription, setServiceDescription] = React.useState('');
+const [reviews, setReviews] = React.useState('Reviews auto populate here');
 
 const presetTags = ['Basketball', 'Tennis', 'Soccer', 'Volleyball'];
+const images = [require('./../../assets/pics/profile.png'), require('./../../assets/pics/equipment1.png'), require('./../../assets/pics/equipment2.png'),/* Add more images here */];
+
 
 const styles = StyleSheet.create({
   input: {
@@ -25,11 +28,23 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingHorizontal: 10,
   },
+  label: {
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  carouselContainer: {
+    height: 200, // Set the height as needed
+    marginVertical: 10,
+  },
 });
 
 const editTrainerProfile = () => {
   setEditing(!editing); // Toggle edit mode
 };
+
+const renderCarouselItem = ({ item }: { item: any }) => (
+  <Image source={item} style={{ width: '100%', height: '100%', resizeMode: 'contain' }} /> //resizeMode is contain or cover
+);
 
 const handleTagSelection = (tag: string) => {
   if (selectedTags.includes(tag)) {
@@ -66,12 +81,13 @@ const renderTagsSection = () => {
     return (
       <View>
         <Text>Selected Tags:</Text>
-        <FlatList
+        <Text>{selectedTags.join(', ')}</Text>
+        {/* <FlatList
           data={selectedTags}
           renderItem={({ item }) => <Text>{item}</Text>}
           keyExtractor={(item) => item}
           horizontal
-        />
+        /> */}
       </View>
     );
   }
@@ -82,9 +98,6 @@ const handleInputChange = (key: string, value: string) => {
   switch (key) {
     case 'name':
       setName(value);
-      break;
-    case 'tags':
-      setTags(value);
       break;
     case 'equipment':
       setEquipment(value);
@@ -111,58 +124,84 @@ const handleInputChange = (key: string, value: string) => {
       <ScrollView contentContainerStyle={General.mainContainer}>
         <Text>Trainer Profile</Text>
         <Button title={editing ? "Save" : "Edit"} onPress={editTrainerProfile} />
+      <Carousel
+        data={images}
+        renderItem={renderCarouselItem}
+        sliderWidth={300}
+        itemWidth={300}
+        // sliderHeight={400} // Adjust the height as needed
+        // itemHeight={400}  // Adjust the height as needed
+        onSnapToItem={(index) => setCarouselIndex(index)}
+        containerCustomStyle={styles.carouselContainer}
+      />
+      <Pagination
+        dotsLength={images.length}
+        activeDotIndex={carouselIndex}
+        containerStyle={{ marginTop: -20 }} // Adjust the position as needed
+        dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 8,
+          backgroundColor: 'rgba(255, 255, 255, 0.92)',
+        }}
+        inactiveDotStyle={{
+          // Define styles for inactive dots if needed
+        }}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+      />
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={[styles.label, { marginRight: 5 }]}>Name:</Text>
         <TextInput
-        style={styles.input}
-        value={name}
-        placeholder="Name"
-        onChangeText={(text) => handleInputChange('name', text)}
-        editable={editing}
-      />
-      <TextInput
-        style={styles.input}
-        value={tags}
-        placeholder="Tags"
-        onChangeText={(text) => handleInputChange('tags', text)}
-        editable={editing}
-      />
-        {renderTagsSection()}
-      <View>
-       <Text>Tags:</Text>
-        <FlatList
-          data={presetTags}
-          renderItem={renderTagItem}
-          keyExtractor={(item) => item}
-          horizontal
+          style={styles.input}
+          value={name}
+          placeholder="Enter Name"
+          onChangeText={(text) => handleInputChange('name', text)}
+          editable={editing}
         />
       </View>
-      <TextInput
-        style={styles.input}
-        value={equipment}
-        placeholder="Equipment"
-        onChangeText={(text) => handleInputChange('equipment', text)}
-        editable={editing}
-      />
-      <TextInput
-        style={styles.input}
-        value={credentials}
-        placeholder="Credentials"
-        onChangeText={(text) => handleInputChange('credentials', text)}
-        editable={editing}
-      />
-      <TextInput
-        style={styles.input}
-        value={socials}
-        placeholder="Socials"
-        onChangeText={(text) => handleInputChange('socials', text)}
-        editable={editing}
-      />
-       <TextInput
-        style={styles.input}
-        value={services}
-        placeholder="Services"
-        onChangeText={(text) => handleInputChange('services', text)}
-        editable={editing}
-      />
+        {renderTagsSection()}
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={[styles.label, { marginRight: 5 }]}>Equipment:</Text>
+        <TextInput
+          style={styles.input}
+          value={equipment}
+          placeholder="Enter Equipment"
+          onChangeText={(text) => handleInputChange('equipment', text)}
+          editable={editing}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={[styles.label, { marginRight: 5 }]}>Credentials:</Text>
+        <TextInput
+          style={styles.input}
+          value={credentials}
+          placeholder="Enter Credentials"
+          onChangeText={(text) => handleInputChange('credentials', text)}
+          editable={editing}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={[styles.label, { marginRight: 5 }]}>Socials:</Text>
+        <TextInput
+          style={styles.input}
+          value={socials}
+          placeholder="Enter Socials"
+          onChangeText={(text) => handleInputChange('socials', text)}
+          editable={editing}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={[styles.label, { marginRight: 5 }]}>Services:</Text>
+        <TextInput
+          style={styles.input}
+          value={services}
+          placeholder="Enter Services"
+          onChangeText={(text) => handleInputChange('services', text)}
+          editable={editing}
+        />
+      </View>
       <TextInput
         style={styles.input}
         value={serviceDescription}
@@ -170,7 +209,9 @@ const handleInputChange = (key: string, value: string) => {
         onChangeText={(text) => handleInputChange('serviceDescription', text)}
         editable={editing}
       />
-        <Text>{reviews}</Text>
+      <Text>Reviews:</Text>
+      <Text>{reviews}</Text>
+
       </ScrollView>
 
   )
