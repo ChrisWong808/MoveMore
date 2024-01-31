@@ -13,11 +13,10 @@ export default function TrainerProfile () {
   const [equipment, setEquipment] = React.useState('')
   const [credentials, setCredentials] = React.useState('')
   const [socials, setSocials] = React.useState('')
-  const [services, setServices] = React.useState('')
-  const [serviceDescription, setServiceDescription] = React.useState('')
   const [reviews, setReviews] = React.useState('Reviews auto populate here')
 
-  const presetTags = ['Basketball', 'Tennis', 'Soccer', 'Volleyball']
+  const presetTags = ['Aikido', 'Airsoft', 'Archery', 'Badminton', 'Baseball', 'Basketball', 'Biking', 'Bootcamp', 'Bowling', 'Boxing', 'Brazilian jiu-jitsu', 'Canoeing', 'Cross fit', 'Dancing', 'Diving', 'Dogs', 'Fishing', 'Football', 'Free Running', 'Golf', 'Gymnastics', 'Hiking', 'Hockey', 'Hunting', 'Ice Hockey', 'Ice Skating', 'Judo', 'Karate', 'Kayaking', 'Kickboxing', 'Kite surfing', 'Lacrosse', 'Marathon', 'Mixed Martial Arts', 'Muay Thai', 'Other', 'Paintball', 'Parkour', 'Pickleball', 'Ping Pong', 'Pokemon Go', 'Polo', 'Racquetball', 'Rafting', 'Rock Climbing', 'Roller Blading', 'Roller Skating', 'Rowing', 'Rugby', 'Running', 'Sailing', 'Scootering', 'Scuba Diving', 'Skateboarding', 'Skiing', 'Slacklining', 'Sledding', 'Snorkeling', 'Snowboarding', 'Soccer', 'Squash', 'Stand up paddleboard', 'Surfing', 'Swimming', 'Tennis', 'Triathlon', 'Ultimate Frisbee', 'Volleyball', 'Water Polo', 'Weight lifting', 'Windsurfing', 'Wrestling', 'Yoga', 'Zumba']
+
   const images = [require('./../../assets/pics/profile.png'), require('./../../assets/pics/equipment1.png'), require('./../../assets/pics/equipment2.png')/* Add more images here */]
 
   const styles = StyleSheet.create({
@@ -86,12 +85,6 @@ export default function TrainerProfile () {
         <View>
           <Text>Selected Tags:</Text>
           <Text>{selectedTags.join(', ')}</Text>
-          {/* <FlatList
-          data={selectedTags}
-          renderItem={({ item }) => <Text>{item}</Text>}
-          keyExtractor={(item) => item}
-          horizontal
-        /> */}
         </View>
       )
     }
@@ -111,12 +104,6 @@ export default function TrainerProfile () {
         break
       case 'socials':
         setSocials(value)
-        break
-      case 'services':
-        setServices(value)
-        break
-      case 'serviceDescription':
-        setServiceDescription(value)
         break
         // Add more cases for other fields if needed
       default:
@@ -196,34 +183,7 @@ export default function TrainerProfile () {
           editable={editing}
         />
       </View>
-      {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={[styles.label, { marginRight: 5 }]}>Services:</Text>
-        <TextInput
-          style={styles.input}
-          value={services}
-          placeholder="Enter Services"
-          onChangeText={(text) => handleInputChange('services', text)}
-          editable={editing}
-        />
-      </View> */}
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={[styles.label, { marginRight: 5 }]}>Services:</Text>
-        <TextInput
-          style={styles.input}
-          value={services}
-          placeholder="Enter Services"
-          onChangeText={(text) => { handleInputChange('services', text) }}
-          editable={editing}
-        />
-      </View>
       <TrainerServices {...{ editing, selectedTags }}/>
-      <TextInput
-        style={styles.input}
-        value={serviceDescription}
-        placeholder="ServiceDescription"
-        onChangeText={(text) => { handleInputChange('serviceDescription', text) }}
-        editable={editing}
-      />
       <Text>Reviews:</Text>
       <Text>{reviews}</Text>
 
