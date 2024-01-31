@@ -38,6 +38,27 @@ export default function TrainerProfile () {
     carouselContainer: {
       height: 200, // Set the height as needed
       marginVertical: 10
+    },
+    tagListContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start', // Align tags to the start (left) of the container
+      marginBottom: 10, // Add some marginBottom for spacing
+    },
+    tagsNoEdit: {
+      margin: 5,
+      padding: 5,
+      fontSize: 12, // Default font size
+      borderWidth: 1,
+      borderRadius: 5,
+    },
+    tagsWEdit: {
+      margin: 5,
+      padding: 5,
+      fontSize: 8, // Smaller font size for editing mode
+      borderWidth: 1,
+      borderRadius: 5,
+      alignSelf: 'flex-start'
     }
   })
 
@@ -72,19 +93,39 @@ export default function TrainerProfile () {
       return (
         <View>
           <Text>Tags:</Text>
-          <FlatList
+          {/* <FlatList
             data={presetTags}
             renderItem={renderTagItem}
             keyExtractor={(item) => item}
             horizontal
-          />
+          /> */}
+          <View style={styles.tagListContainer}>
+          {presetTags.map((tag, index) => (
+            <Button
+              key={index}
+              title={tag}
+              onPress={() => { handleTagSelection(tag) }}
+              color={selectedTags.includes(tag) ? 'green' : 'gray'}
+              titleStyle={styles.tagsWEdit}
+            />
+          //   <View key={index}>
+          //   <Button
+          //     key={index}
+          //     title={tag}
+          //     onPress={() => { handleTagSelection(tag) }}
+          //     color={selectedTags.includes(tag) ? 'green' : 'gray'}
+          //   />
+          //   <Text style={styles.tagsWEdit}>{tag}</Text>
+          // </View>
+          ))}
+        </View>
         </View>
       )
     } else {
       return (
         <View>
           <Text>Selected Tags:</Text>
-          <Text>{selectedTags.join(', ')}</Text>
+          <Text style={styles.tagsNoEdit}>{selectedTags.join(', ')}</Text>
         </View>
       )
     }
