@@ -3,19 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import { SelectList } from 'react-native-dropdown-select-list'
 
-// const [selected, setSelected] = React.useState("");
-
-// const data = [
-//     {key:'1', value:'Mobiles', disabled:true},
-//     {key:'2', value:'Appliances'},
-//     {key:'3', value:'Cameras'},
-//     {key:'4', value:'Computers', disabled:true},
-//     {key:'5', value:'Vegetables'},
-//     {key:'6', value:'Diary Products'},
-//     {key:'7', value:'Drinks'},
-// ]
-
-
 const styles = StyleSheet.create({
   input: {
     height: 40,
@@ -36,6 +23,17 @@ const styles = StyleSheet.create({
     height: 200, // Set the height as needed
     marginVertical: 10,
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pickerStyles: {
+    width:'70%',
+    backgroundColor:'gray',
+    color:'white'
+  }
 });
 
 export default function TrainerServices(props) {
@@ -44,6 +42,21 @@ export default function TrainerServices(props) {
   const activities = selectedTags; // Assuming selectedTags contains the available activity options
   const costOptions = ['10', '20', '30'];
   const difficultyOptions = ['entry', 'intermediate', 'hard'];
+  const [isPickerFocused,setIsPickerFocused]=useState()
+  const [selected, setSelected] = React.useState("");
+
+  const handleFocus=(focus)=>setIsPickerFocused(focus);
+
+const data = [
+    {key:'1', value:'Mobiles', disabled:true},
+    {key:'2', value:'Appliances'},
+    {key:'3', value:'Cameras'},
+    {key:'4', value:'Computers', disabled:true},
+    {key:'5', value:'Vegetables'},
+    {key:'6', value:'Diary Products'},
+    {key:'7', value:'Drinks'},
+]
+
 
 
   const handleServiceInputChange = (index, key, value) => {
@@ -73,11 +86,13 @@ export default function TrainerServices(props) {
                     <Picker.Item key={i} label={activity} value={activity} />
                   ))}
                 </Picker> */}
-                  {/* <SelectList
+                  <SelectList
                     setSelected={(val) => setSelected(val)}
                     data={data}
                     save="value"
-                  /> */}
+                    maxHeightList={150}
+                    placeholder="Select List there heeeeere"
+                  />
                  <TouchableOpacity
                   onPress={() => {
                     // Add your logic to handle the press event and open the Picker
@@ -103,13 +118,16 @@ export default function TrainerServices(props) {
                   ))}
                 </Picker>
               </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={styles.container}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Cost:</Text>
                 <Picker
                   selectedValue={service.cost}
-                  style={[styles.input, { flex: 1 }]}
+                  style={styles.pickerStyles}
                   onValueChange={(itemValue) => handleServiceInputChange(index, 'cost', itemValue)}
                   enabled={editing}
+                  mode={'dropdown'}
+                  onBlur={()=>handleFocus(false)}
+                  onFocus={()=>handleFocus(true)}
                 >
                   <Picker.Item label="Select Cost" value="" />
                   {costOptions.map((cost, i) => (
