@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { Picker } from '@react-native-picker/picker'
 import TrainerServices from './TrainerServices'
+import StarRating from 'react-native-star-rating'
 
 export default function TrainerProfile () {
   const [editing, setEditing] = useState(false) // Track if the user is in edit mode
@@ -18,6 +19,10 @@ export default function TrainerProfile () {
   const presetTags = ['Aikido', 'Airsoft', 'Archery', 'Badminton', 'Baseball', 'Basketball', 'Biking', 'Bootcamp', 'Bowling', 'Boxing', 'Brazilian jiu-jitsu', 'Canoeing', 'Cross fit', 'Dancing', 'Diving', 'Dogs', 'Fishing', 'Football', 'Free Running', 'Golf', 'Gymnastics', 'Hiking', 'Hockey', 'Hunting', 'Ice Hockey', 'Ice Skating', 'Judo', 'Karate', 'Kayaking', 'Kickboxing', 'Kite surfing', 'Lacrosse', 'Marathon', 'Mixed Martial Arts', 'Muay Thai', 'Other', 'Paintball', 'Parkour', 'Pickleball', 'Ping Pong', 'Pokemon Go', 'Polo', 'Racquetball', 'Rafting', 'Rock Climbing', 'Roller Blading', 'Roller Skating', 'Rowing', 'Rugby', 'Running', 'Sailing', 'Scootering', 'Scuba Diving', 'Skateboarding', 'Skiing', 'Slacklining', 'Sledding', 'Snorkeling', 'Snowboarding', 'Soccer', 'Squash', 'Stand up paddleboard', 'Surfing', 'Swimming', 'Tennis', 'Triathlon', 'Ultimate Frisbee', 'Volleyball', 'Water Polo', 'Weight lifting', 'Windsurfing', 'Wrestling', 'Yoga', 'Zumba']
 
   const images = [require('./../../assets/pics/profile.png'), require('./../../assets/pics/equipment1.png'), require('./../../assets/pics/equipment2.png')/* Add more images here */]
+
+  const sampleRatingAndReviews = [{ username: 'user 1', time: '1/2/2023 at 1:00pm', service: 'tennis', rating: 5, comment: 'very good' }, { username: 'user 2', time: '1/2/2024 at 2:00pm', service: 'basketball', rating: 4, comment: ' good' }, { username: 'user 3', time: '8/5/2023 at 3:00pm', service: 'bowling', rating: 3, comment: 'was alright' }]
+
+
 
   const styles = StyleSheet.create({
     input: {
@@ -40,12 +45,14 @@ export default function TrainerProfile () {
       marginVertical: 10
     },
     tagListContainer: {
+      // So you can see all preset tags all at once and not 1 line long scroll
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignItems: 'flex-start', // Align tags to the start (left) of the container
       marginBottom: 10, // Add some marginBottom for spacing
     },
     tagsNoEdit: {
+      // works because text
       margin: 5,
       padding: 5,
       fontSize: 12, // Default font size
@@ -53,12 +60,31 @@ export default function TrainerProfile () {
       borderRadius: 5,
     },
     tagsWEdit: {
+      // doesn't do anything cause button
       margin: 5,
       padding: 5,
       fontSize: 8, // Smaller font size for editing mode
       borderWidth: 1,
       borderRadius: 5,
       alignSelf: 'flex-start'
+    },
+    averageRatingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    averageRatingText: {
+      marginRight: 10,
+    },
+    individualRatingsContainer: {},
+    individualRatingItem: {
+      marginBottom: 10, // Adjust this value to control the space between individual rating items
+      flexDirection: 'column', // Ensure the children are stacked vertically
+      alignItems: 'flex-start', // Align children to the start (left) of the container
+    },
+    individualRatingText: {
+      fontWeight: 'bold',
+      marginBottom: 5,
     }
   })
 
@@ -152,6 +178,16 @@ export default function TrainerProfile () {
     }
   }
 
+  const calcAvgRating = () => {
+    if (sampleRatingAndReviews.length === 0) {
+      return 0;
+    }
+    const totalRating = sampleRatingAndReviews.reduce((sum, review) => sum + review.rating, 0);
+    return totalRating / sampleRatingAndReviews.length;
+  };
+
+  const avgRating = calcAvgRating()
+
   return (
     <ScrollView contentContainerStyle={[styles.scrollViewContent]}>
       <Text>Trainer Profile</Text>
@@ -225,9 +261,42 @@ export default function TrainerProfile () {
         />
       </View>
       <TrainerServices {...{ editing, selectedTags }}/>
-      <Text>Reviews:</Text>
-      <Text>{reviews}</Text>
+      {/* <Text>Reviews:</Text>
+      <Text>{reviews}</Text> */}
 
+      {/* Display Average Rating */}
+      <View style={styles.averageRatingContainer}>
+        <Text style={styles.averageRatingText}>{`Average Rating: ${avgRating.toFixed(1)}/5`}</Text>
+        <StarRating
+          disabled={true}
+          maxStars={5}
+          rating={avgRating}
+          fullStarColor={'gold'}
+          halfStarColor={'gold'}
+          starSize={25}
+        />
+        <Text>{`(${sampleRatingAndReviews.length} Ratings)`}</Text>
+      </View>
+
+      {/* Display Individual Ratings and Reviews */}
+      <View style={styles.individualRatingsContainer}>
+        {sampleRatingAndReviews.map((review, index) => (
+          <View key={index} style={styles.individualRatingItem}>
+            <Text style={styles.individualRatingText}>{`${review.username} - Rating: ${review.rating}/5`}</Text>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={review.rating}
+              fullStarColor={'gold'}
+              halfStarColor={'gold'}
+              starSize={20}
+            />
+            <Text>{`Service: ${review.service}`}</Text>
+            <Text>{`Time: ${review.time}`}</Text>
+            <Text>{`Comment: ${review.comment}`}</Text>
+          </View>
+        ))}
+      </View>
     </ScrollView>
 
   )

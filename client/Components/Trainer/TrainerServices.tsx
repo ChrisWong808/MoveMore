@@ -114,7 +114,7 @@ export default function TrainerServices (props) {
                 />
             </View>
               {/* Picker for Activity */}
-              <View style={styles.container}>
+              {/* <View style={styles.container}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Activity:</Text>
                 <Picker
                   selectedValue={service.activity}
@@ -127,9 +127,9 @@ export default function TrainerServices (props) {
                     <Picker.Item key={i} label={activity} value={activity} />
                   ))}
                 </Picker>
-              </View>
+              </View> */}
               {/* Picker for cost */}
-              <View style={styles.container}>
+              {/* <View style={styles.container}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Cost:</Text>
                 <Picker
                   selectedValue={service.cost}
@@ -145,7 +145,7 @@ export default function TrainerServices (props) {
                     <Picker.Item key={i} label={cost} value={cost} />
                   ))}
                 </Picker>
-              </View>
+              </View> */}
               {/* //text input for location */}
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Location:</Text>
@@ -158,7 +158,7 @@ export default function TrainerServices (props) {
                 />
               </View>
               {/* Picker for duration */}
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Duration:</Text>
                 <Picker
                   selectedValue={service.duration}
@@ -174,9 +174,9 @@ export default function TrainerServices (props) {
                     <Picker.Item key={i} label={duration} value={duration} />
                   ))}
                 </Picker>
-              </View>
+              </View> */}
               {/* Picker for difficulty */}
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Difficulty:</Text>
                 <Picker
                   selectedValue={service.difficulty}
@@ -192,7 +192,7 @@ export default function TrainerServices (props) {
                     <Picker.Item key={i} label={difficulty} value={difficulty} />
                   ))}
                 </Picker>
-              </View>
+              </View> */}
              {/* //text input for description */}
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={[styles.label, { marginRight: 5 }]}>Description:</Text>
@@ -208,13 +208,18 @@ export default function TrainerServices (props) {
           ) : (
             // Render Service1 when not editing
             <View>
-              <Text>{`Service${index + 1}:`}</Text>
-              <Text>{`Activity: ${service.activity}`}</Text>
+              <Text>{`Service ${index + 1}:`}</Text>
+              {/* <Text>{`Activity: ${service.activity}`}</Text>
               <Text>{`Cost: ${service.cost}`}</Text>
               <Text>{`Location: ${service.location}`}</Text>
               <Text>{`Duration: ${service.duration}`}</Text>
               <Text>{`Difficulty: ${service.difficulty}`}</Text>
-              <Text>{`Description: ${service.description}`}</Text>
+              <Text>{`Description: ${service.description}`}</Text> */}
+              <Text>{`${service.activity} (${service.difficulty}) - $${service.cost} per session for ${service.duration} at ${service.location}`} </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Button title={'View Details'} onPress={() => Alert.alert(`${service.description}`)} />
+                <Button title={'Book Now'} onPress={() => Alert.alert('Will send to calendar')} />
+              </View>
               {/* Add other fields as needed */}
             </View>
           )}
