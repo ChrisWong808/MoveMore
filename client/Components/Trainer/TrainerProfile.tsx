@@ -6,6 +6,10 @@ import { Picker } from '@react-native-picker/picker'
 import TrainerServices from './TrainerServices'
 import StarRating from 'react-native-star-rating'
 
+// temporary testing
+// import ClientHome from '../Client/ClientHome'
+import TrainerHome from './TrainerHome'
+
 export default function TrainerProfile () {
   const [editing, setEditing] = useState(false) // Track if the user is in edit mode
   const [carouselIndex, setCarouselIndex] = useState(0)
@@ -20,9 +24,11 @@ export default function TrainerProfile () {
 
   const images = [require('./../../assets/pics/profile.png'), require('./../../assets/pics/equipment1.png'), require('./../../assets/pics/equipment2.png')/* Add more images here */]
 
-  const sampleRatingAndReviews = [{ username: 'user 1', time: '1/2/2023 at 1:00pm', service: 'tennis', rating: 5, comment: 'very good' }, { username: 'user 2', time: '1/2/2024 at 2:00pm', service: 'basketball', rating: 4, comment: ' good' }, { username: 'user 3', time: '8/5/2023 at 3:00pm', service: 'bowling', rating: 3, comment: 'was alright' }]
-
-
+  const sampleRatingAndReviews = [
+    { username: 'user 1', time: new Date(2023, 0, 2), service: 'tennis', rating: 5, comment: 'very good' },
+    { username: 'user 2', time: new Date(2024, 0, 2), service: 'basketball', rating: 4, comment: 'good' },
+    { username: 'user 3', time: new Date(2023, 7, 5), service: 'bowling', rating: 3, comment: 'was alright' }
+  ]
 
   const styles = StyleSheet.create({
     input: {
@@ -192,6 +198,10 @@ export default function TrainerProfile () {
     <ScrollView contentContainerStyle={[styles.scrollViewContent]}>
       <Text>Trainer Profile</Text>
       <Button title={editing ? 'Save' : 'Edit'} onPress={editTrainerProfile} />
+
+      {/* temporary testing */}
+      {/* <ClientHome></ClientHome> */}
+
       <Carousel
         data={images}
         renderItem={renderCarouselItem}

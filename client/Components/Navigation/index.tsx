@@ -175,6 +175,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core']);
 import TrainerHome from "../Trainer/TrainerHome"
+import ClientHome from "../Client/ClientHome"
+
 const Stack = createStackNavigator();
 
 export default function RootNavigation() {
@@ -187,8 +189,13 @@ export default function RootNavigation() {
     if (username === '123' && password === '123') {
       setLogin(true);
       setRole('trainer');
-      Alert.alert('Login successful');
-    } else {
+      Alert.alert('Login successful as Trainer');
+    } else if (username === '321' && password === '321') {
+      setLogin(true);
+      setRole('client');
+      Alert.alert('Login successful as Client');
+    }
+    else {
       setLogin(false);
       setRole('');
       Alert.alert('Invalid username or password')
@@ -200,7 +207,12 @@ export default function RootNavigation() {
     <NavigationContainer>
       <Stack.Navigator>
         {login ? (
-          <Stack.Screen options={{ headerShown: false }} name="TrainerHome" component={TrainerHome} />
+          role === 'trainer' ? (
+            <Stack.Screen options={{ headerShown: false }} name="TrainerHome" component={TrainerHome} initialParams={{role: role, setRole: setRole}}/>
+          ) : (
+            <Stack.Screen options={{ headerShown: false }} name="ClientHome" component={ClientHome} initialParams={{role: role, setRole: setRole}}/>
+          )
+          // <Stack.Screen options={{ headerShown: false }} name="TrainerHome" component={TrainerHome} />
         ) : (
           <Stack.Screen name="Login">
             {() => (

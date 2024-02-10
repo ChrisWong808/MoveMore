@@ -9,6 +9,7 @@ import {
   DrawerItem
 } from '@react-navigation/drawer'
 import PlanningCalendar from '../PlanningCalendar'
+import ClientHome from '../Client/ClientHome'
 
 function TrainerHomeContent (navigation) {
   return (
@@ -21,6 +22,7 @@ function TrainerHomeContent (navigation) {
 }
 
 function CustomDrawerContent (props) {
+    // console.log('SetRole 3', props.setRole)
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -32,16 +34,21 @@ function CustomDrawerContent (props) {
         label="Toggle drawer"
         onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
       />
+      <DrawerItem
+        label="Switch Role"
+        onPress={() => props.setRole('client')}
+      />
     </DrawerContentScrollView>
   )
 }
 
 const Drawer = createDrawerNavigator()
 
-function MyDrawer () {
+function MyDrawer ({role, setRole}) {
+  // console.log('setRole 2', setRole)
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => <CustomDrawerContent {...props} role={role} setRole={setRole} />}
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={TrainerHomeContent} />
@@ -50,9 +57,18 @@ function MyDrawer () {
   )
 }
 
-export default function TrainerHome () {
-  return (
+export default function TrainerHome ({route}) {
+  // console.log("prop:", prop)
+  // let role = prop['role']
+  // let setRole = prop['setRole']
+  // console.log("role:", role, "setRole:", setRole)
+  const { role, setRole } = route.params;
 
-      <MyDrawer />
+  // console.log("role:", role, "setRole1:", setRole);
+
+  return (
+      <MyDrawer role={role}
+      setRole={setRole}
+      />
   )
 }

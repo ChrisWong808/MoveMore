@@ -40,9 +40,10 @@ export default function TrainerServices (props) {
   const { editing, selectedTags } = props
   const [servicesList, setServicesList] = React.useState([{ activity: '', cost: '', location: '', duration: '', difficulty: '', description: '' }])
   const activities = selectedTags // Assuming selectedTags contains the available activity options
-  const costOptions = ['10', '20', '30']
-  const durationOptions = ['1 Hour', '1.5 Hours', '2 Hours', '2.5 Hours', '3 Hours', '3.5 Hours', '4 Hours', '4.5 Hours', '5 Hours', '5.5 Hours', '6 Hours']
-  const difficultyOptions = ['Entry', 'Intermediate', 'Hard']
+  const costOptions = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000]
+  // const durationOptions = ['1 Hour', '1.5 Hours', '2 Hours', '2.5 Hours', '3 Hours', '3.5 Hours', '4 Hours', '4.5 Hours', '5 Hours', '5.5 Hours', '6 Hours']
+  const durationOptions = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6]
+  const difficultyOptions = ['Entry', 'Intermediate', 'Advanced']
   const [isPickerFocused, setIsPickerFocused] = useState()
   const [selected, setSelected] = React.useState('')
 
@@ -58,6 +59,7 @@ export default function TrainerServices (props) {
     // Add a new service to the list
     setServicesList([...servicesList, { activity: '', cost: '', location: '', duration: '', difficulty: '', description: '' }])
   }
+
   return (
     <View>
       {servicesList.map((service, index) => (
@@ -99,7 +101,7 @@ export default function TrainerServices (props) {
                   data={durationOptions.map((duration) => ({ value: duration }))}
                   save="value"
                   maxHeightList={150}
-                  placeholder={service.duration ? service.duration : 'Select Duration'}
+                  placeholder={service.duration ? service.duration : 'Select Duration in Hours'}
                 />
             </View>
             {/* Select List for Difficulty */}
@@ -215,7 +217,7 @@ export default function TrainerServices (props) {
               <Text>{`Duration: ${service.duration}`}</Text>
               <Text>{`Difficulty: ${service.difficulty}`}</Text>
               <Text>{`Description: ${service.description}`}</Text> */}
-              <Text>{`${service.activity} (${service.difficulty}) - $${service.cost} per session for ${service.duration} at ${service.location}`} </Text>
+              <Text>{`${service.activity} (${service.difficulty}) - $${service.cost} per session for ${service.duration} ${service.duration === 1 ? 'hour' : 'hours'} at ${service.location}`} </Text>
               <View style={{ flexDirection: 'row' }}>
                 <Button title={'View Details'} onPress={() => Alert.alert(`${service.description}`)} />
                 <Button title={'Book Now'} onPress={() => Alert.alert('Will send to calendar')} />
