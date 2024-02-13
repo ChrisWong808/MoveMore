@@ -1,0 +1,6 @@
+event_id,service_id,trainer_id,client_id,event_timestamp,notes
+1,1,1,2,'2024-02-03 10:00:00','Focus on upper body strength training.'
+2,2,5,6,'2024-02-07 08:00:00','Morning run in the park to improve running form.'
+3,3,7,8,'2024-02-12 18:30:00','HIIT session targeting full-body strength and cardio.'
+4,4,9,10,'2024-02-17 17:00:00','Group Pilates class for core strength and flexibility.'
+5,5,11,12,'2024-02-22 19:15:00','Kickboxing session with a mix of cardio and strength exercises.'

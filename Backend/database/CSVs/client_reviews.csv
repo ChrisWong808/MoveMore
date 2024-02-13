@@ -1,0 +1,6 @@
+review_id,trainer_id,client_id,service_name,rating,review_text,review_date
+1,1,2,'Personal Training',4,'Enjoyed the sessions. Trainer was knowledgeable and supportive.','2024-02-02'
+2,5,6,'Running Coaching',5,'Improved my running performance significantly. Thanks!','2024-02-06'
+3,7,8,'HIIT Workouts',4,'Effective and intense HIIT workouts. Feeling stronger!','2024-02-11'
+4,9,10,'Pilates Classes',5,'Excellent Pilates instructor. Classes have improved my flexibility.','2024-02-16'
+5,11,12,'Kickboxing Sessions',4,'Fun kickboxing sessions. Great way to stay active.','2024-02-21'

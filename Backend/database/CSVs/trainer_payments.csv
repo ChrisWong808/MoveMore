@@ -1,0 +1,6 @@
+payment_id,trainer_id,payment_amount,payment_date,payment_method,transaction_id
+1,1,50.00,2024-02-01,'PayPal','abc123'
+2,5,75.00,2024-02-05,'Venmo','xyz456'
+3,7,60.00,2024-02-10,'Bank Transfer','ijk789'
+4,9,45.00,2024-02-15,'PayPal','lmn456'
+5,11,70.00,2024-02-20,'Venmo','opq789'

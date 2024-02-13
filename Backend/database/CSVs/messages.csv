@@ -1,0 +1,11 @@
+message_id,sender_id,receiver_id,message_text,message_timestamp,is_read
+1,2,1,'Hi Trainer1! I'm interested in personal training sessions.','2024-02-01 14:30:00',true
+2,1,2,'Hello Client1! Sure, I'd be happy to help. Let's discuss your fitness goals.','2024-02-01 15:00:00',false
+3,6,5,'Hi Trainer2! I'm looking for running coaching. Are you available?','2024-02-05 09:45:00',false
+4,5,6,'Hello Client2! Absolutely, I can help you with running coaching. Let's schedule a session.','2024-02-05 10:15:00',true
+5,8,7,'Hello Trainer3! Interested in HIIT workouts. Can we set up a session?','2024-02-10 12:30:00',false
+6,7,8,'Hi Client3! Absolutely, let's schedule a HIIT session. Excited to work with you!','2024-02-10 13:00:00',true
+7,10,9,'Hi Trainer4! Looking for Pilates classes. When are your next classes?','2024-02-15 16:45:00',false
+8,9,10,'Hello Client4! I have Pilates classes on Tuesdays and Thursdays. Let me know which works for you.','2024-02-15 17:15:00',true
+9,12,11,'Hi Trainer5! Interested in kickboxing sessions. Are you available on weekends?','2024-02-20 18:00:00',false
+10,11,12,'Hello Client5! Absolutely, let's schedule kickboxing sessions on weekends. Looking forward to it!','2024-02-20 18:30:00',true

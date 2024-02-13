@@ -1,0 +1,6 @@
+review_id,trainer_id,client_id,service_name,rating,review_text,review_date
+1,1,2,'Personal Training',4,'Great trainer! Really helped me achieve my fitness goals.','2024-02-02'
+2,5,6,'Running Coaching',5,'Fantastic running coach. Highly recommended!','2024-02-06'
+3,7,8,'HIIT Workouts',4,'Challenging and effective HIIT sessions.','2024-02-11'
+4,9,10,'Pilates Classes',5,'Love the Pilates classes. Great for flexibility and core strength.','2024-02-16'
+5,11,12,'Kickboxing Sessions',4,'High-energy kickboxing sessions. Great for stress relief.','2024-02-21'
