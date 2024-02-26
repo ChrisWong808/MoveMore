@@ -1,0 +1,13 @@
+account_id,username,passwords,role,first_name,last_name,phone_number
+1,username1,password1,trainer,John,Doe,1234567890
+2,username2,password2,client,Jane,Smith,9876543210
+3,username3,password3,trainer,Trainer1,Lastname1,1112223333
+4,username4,password4,client,Client1,Lastname1,4445556666
+5,username5,password5,trainer,Trainer2,Lastname2,7778889999
+6,username6,password6,client,Client2,Lastname2,1234567890
+7,username7,password7,trainer,Trainer3,Lastname3,5556667777
+8,username8,password8,client,Client3,Lastname3,9876543210
+9,username9,password9,trainer,Trainer4,Lastname4,1112223333
+10,username10,password10,client,Client4,Lastname4,4445556666
+11,username11,password11,trainer,Trainer5,Lastname5,7778889999
+12,username12,password12,client,Client5,Lastname5,1234567890

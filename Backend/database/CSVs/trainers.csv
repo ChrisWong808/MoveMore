@@ -1,6 +1,0 @@
-trainer_id,account_id,location,tags,equipment,credentials,socials,bio
-1,3,POINT(40.7128 -74.0060),'["Fitness", "Yoga"]','["Dumbbells", "Yoga mat"]','["Certified Trainer"]','["@trainer1"]','Experienced fitness trainer with a passion for helping clients achieve their goals.'
-5,5,POINT(34.0522 -118.2437),'["Running", "Cycling"]','["Running shoes", "Bike"]','["Certified Running Coach"]','["@trainer2"]','Dedicated running and cycling coach, specializing in endurance training.'
-7,7,POINT(41.8781 -87.6298),'["Weightlifting", "HIIT"]','["Barbell", "Jump rope"]','["Elite Trainer"]','["@trainer3"]','Passionate about high-intensity interval training and weightlifting.'
-9,9,POINT(37.7749 -122.4194),'["Pilates", "Flexibility"]','["Pilates reformer", "Exercise ball"]','["Pilates Instructor"]','["@trainer4"]','Certified Pilates instructor focusing on flexibility and core strength.'
-11,11,POINT(35.6895 139.6917),'["Martial Arts", "Kickboxing"]','["Boxing gloves", "Kicking pads"]','["Martial Arts Master"]','["@trainer5"]','Specializing in martial arts and kickboxing for fitness and self-defense.'

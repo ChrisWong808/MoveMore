@@ -15,11 +15,11 @@ module.exports = {
     });
   },
 
-  createAccount: (username, password, is_trainer, is_client, first_name, last_name, phone_number) => {
+  createAccount: (username, password, currentRole, first_name, last_name, phone_number) => {
     return db.query(
       // `INSERT INTO accounts (username, password, is_trainer, is_client, first_name, last_name, phone_number) VALUES ($1, $2, $3, $4, $5, $6, $7)`
-      'INSERT INTO accounts (username, password, is_trainer, is_client, first_name, last_name, phone_number) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-      [username, password, is_trainer, is_client, first_name, last_name, phone_number]
+      'INSERT INTO accounts (username, password, currentRole, first_name, last_name, phone_number) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+      [username, password, currentRole, first_name, last_name, phone_number]
       )
     .then((result) => {
       return result;
@@ -29,8 +29,8 @@ module.exports = {
     });
   },
 
-  changeCurrentRole: (role, username) => {
-    return db.query(`UPDATE accounts SET role = '${role}' WHERE username = '${username}'`)
+  changeCurrentRole: (currentRole, username) => {
+    return db.query(`UPDATE accounts SET role = '${currentRole}' WHERE username = '${username}'`)
     .then((result) => {
       return result;
     })
