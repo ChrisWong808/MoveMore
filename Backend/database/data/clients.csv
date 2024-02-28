@@ -1,6 +1,6 @@
-client_id,account_id,location,tags,goals,contact_number,email,bio
-2,4,POINT(41.8781 -87.6298),'["Weight Loss", "Strength"]','["Lose 10 lbs", "Build muscle"]','5551234567','client1@example.com','Fitness enthusiast striving for a healthier lifestyle.'
-6,6,POINT(37.7749 -122.4194),'["Cardio", "Flexibility"]','["Improve cardiovascular health", "Increase flexibility"]','9876543210','client2@example.com','Passionate about improving cardiovascular health and flexibility.'
-8,8,POINT(40.7128 -74.0060),'["Weight Loss", "Yoga"]','["Yoga mat", "Resistance bands"]','5551112222','client3@example.com','Yoga and weight loss enthusiast looking for a personalized fitness journey.'
-10,10,POINT(34.0522 -118.2437),'["Running", "Strength"]','["Run a half marathon", "Build muscle"]','1234567890','client4@example.com','Aspiring runner and strength training enthusiast.'
-12,12,POINT(41.8781 -87.6298),'["Cardio", "HIIT"]','["Jump rope", "Kettlebell"]','7890123456','client5@example.com','Seeking high-intensity interval training and cardio workouts for overall fitness.'
+client_id,account_id,location,tags,goals,bio
+2,4,POINT(41.8781 -87.6298),'["Weight Loss", "Strength"]','["Lose 10 lbs", "Build muscle"]','Fitness enthusiast striving for a healthier lifestyle.'
+6,6,POINT(37.7749 -122.4194),'["Cardio", "Flexibility"]','["Improve cardiovascular health", "Increase flexibility"]','Passionate about improving cardiovascular health and flexibility.'
+8,8,POINT(40.7128 -74.0060),'["Weight Loss", "Yoga"]','["Yoga mat", "Resistance bands"]','Yoga and weight loss enthusiast looking for a personalized fitness journey.'
+10,10,POINT(34.0522 -118.2437),'["Running", "Strength"]','["Run a half marathon", "Build muscle"]','Aspiring runner and strength training enthusiast.'
+12,12,POINT(41.8781 -87.6298),'["Cardio", "HIIT"]','["Jump rope", "Kettlebell"]','Seeking high-intensity interval training and cardio workouts for overall fitness.'

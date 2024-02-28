@@ -11,6 +11,7 @@ CREATE TABLE accounts (
     first_name VARCHAR(24) NOT NULL CHECK (LENGTH(first_name) >= 1 AND LENGTH(first_name) <= 24),
     last_name VARCHAR(24) NOT NULL CHECK (LENGTH(last_name) >= 1 AND LENGTH(last_name) <= 24),
     phone_number VARCHAR(13),
+    email VARCHAR(100),
     UNIQUE (username)
 );
 
@@ -49,8 +50,6 @@ CREATE TABLE clients (
     location GEOGRAPHY(Point),
     tags VARCHAR(255)[] DEFAULT '{}',
     goals VARCHAR(255)[] DEFAULT '{}',
-    contact_number VARCHAR(20),
-    email VARCHAR(100),
     bio TEXT
 );
 
@@ -172,6 +171,24 @@ CSV HEADER;
 CREATE INDEX events_id_index ON events(event_id);
 
 GRANT SELECT, UPDATE, DELETE, INSERT on events to christopherwong;
+
+-- -- FOR LATER
+-- CREATE TABLE group_events (
+--     group_event_id SERIAL PRIMARY KEY,
+--     service_id INTEGER REFERENCES services(service_id),
+--     trainer_id INTEGER REFERENCES trainers(trainer_id),
+--     event_timestamp TIMESTAMP,
+--     notes TEXT,
+--     max_attendees INTEGER, -- Numerical limit on the number of clients
+--     current_attendees INTEGER DEFAULT 0 -- Current number of attendees, initially 0
+-- );
+
+-- CREATE TABLE group_event_attendees (
+--     attendee_id SERIAL PRIMARY KEY,
+--     group_event_id INTEGER REFERENCES group_events(group_event_id),
+--     client_id INTEGER REFERENCES clients(client_id)
+--     -- Each row represents a single attendee in a specific group event. This approach provides flexibility for managing attendees dynamically without needing to modify the table structure each time the number of attendees is added or removed.
+-- );
 
 CREATE TABLE messages (
     message_id SERIAL PRIMARY KEY,
