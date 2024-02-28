@@ -1,4 +1,4 @@
-message_id,sender_id,receiver_id,message_text,message_timestamp,is_read
+message_id,trainer_id,client_id,message_text,message_timestamp,is_read
 1,2,1,'Hi Trainer1! I'm interested in personal training sessions.','2024-02-01 14:30:00',true
 2,1,2,'Hello Client1! Sure, I'd be happy to help. Let's discuss your fitness goals.','2024-02-01 15:00:00',false
 3,6,5,'Hi Trainer2! I'm looking for running coaching. Are you available?','2024-02-05 09:45:00',false

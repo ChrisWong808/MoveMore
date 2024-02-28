@@ -2,7 +2,7 @@ const models = require('../models');
 
 module.exports = {
   getDirectMessages: async (req, res) => {
-    models.messages.getDirectMessages(req.params.user_id, req.params.recipient_id)
+    models.messages.getDirectMessages(req.params.trainer_id, req.params.client_id)
       .then((directMessages) => {
         res.status(200).send(directMessages)
       })
@@ -13,8 +13,8 @@ module.exports = {
 
   // idk the diff between these 2 post messages
   postMessage: (req, res) => {
-    const { message, user_id, recipient_id } = req.body.message;
-    models.messages.postMessage(message, user_id, recipient_id)
+    const { message, trainer_id, client_id } = req.body.message;
+    models.messages.postMessage(message, trainer_id, client_id)
       .then(() => {
         res.status(201).send(req.body);
       })
@@ -24,12 +24,12 @@ module.exports = {
   },
 
   _postMessage: (newMessage) => {
-    const { message, user_id, recipient_id, reply } = newMessage;
+    const { message, trainer_id, client_id, reply } = newMessage;
     let id;
-    return models.messages.postMessage(message, user_id, recipient_id, reply)
+    return models.messages.postMessage(message, trainer_id, client_id, reply)
       .then((res_id) => {
         id = res_id;
-        return models.users.getUsername(user_id)
+        return models.users.getUsername(trainer_id)
           .then((result) => {
             let obj = {...newMessage, id: id, username: result, created_at: Date.now()};
             return obj;
