@@ -1,8 +1,8 @@
 const models = require('../models');
 
 module.exports = {
-  getDirectMessages: async (req, res) => {
-    models.messages.getDirectMessages(req.params.trainer_id, req.params.client_id)
+  getMessages: async (req, res) => {
+    models.messages.getMessages(req.params.trainer_id, req.params.client_id)
       .then((directMessages) => {
         res.status(200).send(directMessages)
       })
@@ -11,7 +11,7 @@ module.exports = {
       })
   },
 
-  // idk the diff between these 2 post messages
+  // for handling http request
   postMessage: (req, res) => {
     const { message, trainer_id, client_id } = req.body.message;
     models.messages.postMessage(message, trainer_id, client_id)
@@ -23,6 +23,7 @@ module.exports = {
       });
   },
 
+  //for internal request
   _postMessage: (newMessage) => {
     const { message, trainer_id, client_id, reply } = newMessage;
     let id;

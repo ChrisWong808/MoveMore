@@ -1,8 +1,6 @@
 module.exports = {
   users: require('./users'),
   messages: require('./messages'),
-  // servers: require('./servers'),
-  // channels: require('./channels')
   accountsModel: require('./accountsModel'),
   trainersModel: require('./trainersModel'),
   clientsModel: require('./clientsModel'),
