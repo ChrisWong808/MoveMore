@@ -10,8 +10,11 @@ router.put('/accounts/:account_id', accountsController.changeCurrentRole);
 
 const trainersController = require('../controllers/trainersController');
 
+//general searching multiple trainers
+router.get('/trainers', trainersController.getFilteredTrainers);
+//search for specific trainer
 router.get('/trainers/:trainer_id', trainersController.getTrainer);
-router.post('/trainers/:trainer_id', trainersController.createTrainer);
+router.post('/trainers', trainersController.createTrainer);
 router.put('/trainers/:trainer_id', trainersController.editTrainer);
 // router.delete('/trainers/:trainer_id', trainersController.deleteTrainer);
 

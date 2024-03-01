@@ -8,7 +8,7 @@ import controllers from './controllers'; // Make sure the path is correct
 import { Message, Response } from './types'; // Import the Message and Response interfaces
 
 const app: Express = express();
-const server: HttpServer = new HttpServer(app);
+// const server: HttpServer = new HttpServer(app);
 // const io: SocketIOServer = new socketIO.Server(server, {
 //   cors: {
 //     origin: '*'
