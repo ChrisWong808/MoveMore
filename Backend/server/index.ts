@@ -1,4 +1,5 @@
-import express, { Request, Response as ExpressResponse, Express } from 'express'; // Rename Response to ExpressResponse
+// import express, { Request, Response as ExpressResponse, Express } from 'express'; // Rename Response to ExpressResponse
+import express, { Express } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { Server as HttpServer } from 'http';
@@ -8,16 +9,18 @@ import controllers from './controllers'; // Make sure the path is correct
 import { Message, Response } from './types'; // Import the Message and Response interfaces
 
 const app: Express = express();
-// const server: HttpServer = new HttpServer(app);
-// const io: SocketIOServer = new socketIO.Server(server, {
-//   cors: {
-//     origin: '*'
-//   }
-// });
+const server: HttpServer = new HttpServer(app);
+const io: SocketIOServer = new socketIO.Server(server, {
+  cors: {
+    origin: '*'
+  }
+});
 
 // Define Message and Response interfaces here
 // LATER Look at Gaviali app for clustering and load balance as example
 // LATER Look at Blue Ocean Development for socket io
+
+app.use('/', router);
 
 app.use(express.json());
 app.use(cors());
@@ -44,7 +47,7 @@ const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 //   });
 // });
 
-app.use('/', router);
+// app.use('/', router);
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

@@ -1,5 +1,7 @@
+import { Request, Response } from 'express';
+
 //for the getFilteredTrainers when i transform CardServices need to define function above
-const formatCardServices = (rawCardServices) => {
+const formatCardServices = (rawCardServices: any[]) => {
   const cardServices = [];
   for (let i = 0; i < rawCardServices.length; i += 2) {
     const activity = rawCardServices[i];
@@ -12,65 +14,64 @@ const formatCardServices = (rawCardServices) => {
 const models = require('../models');
 
 module.exports = {
-  getTrainer: (req, res) => {
-    models.trainersModel.getTrainer (req.params.trainer_id)
-      .then((res) => {
-        res.status(200).send(res);
+  getTrainer: (req: Request, res: Response) => {
+    models.trainersModel.getTrainer(req.params.trainer_id)
+      .then((result: any) => {
+        res.status(200).send(result);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       });
   },
-  getFilteredTrainers: async (req, res) => {
-    try {
-      const { distanceFilter, activityFilter, costFilter, client_id } = req.query;
+  // getFilteredTrainers: async (req, res) => {
+  //   try {
+  //     const { distanceFilter, activityFilter, costFilter, client_id } = req.query;
 
-      // Call the model to get filtered trainers
-      const filteredTrainers = await models.trainersModel.getFilteredTrainers(
-        client_id,
-        distanceFilter,
-        activityFilter,
-        costFilter
-      );
+  //     // Call the model to get filtered trainers
+  //     const filteredTrainers = await models.trainersModel.getFilteredTrainers(
+  //       client_id,
+  //       distanceFilter,
+  //       activityFilter,
+  //       costFilter
+  //     );
 
-      // Transform the result to match the desired format
-      const transformedTrainers = await Promise.all(filteredTrainers.map(async (trainer) => {
-        return {
-          trainer_id: trainer.trainer_id,
-          // CardPic: image[0]
-          CardName: `${trainer.first_name} ${trainer.last_name}`,
-          CardAvgRate: trainer.avg_rating,
-          CardNumReviews: trainer.num_reviews,
-          CardServices: formatCardServices(trainer.card_services),
-          DistanceAway: trainer.distance_in_meters,
-        };
-      }));
+  //     // Transform the result to match the desired format
+  //     const transformedTrainers = await Promise.all(filteredTrainers.map(async (trainer) => {
+  //       return {
+  //         trainer_id: trainer.trainer_id,
+  //         // CardPic: image[0]
+  //         CardName: `${trainer.first_name} ${trainer.last_name}`,
+  //         CardAvgRate: trainer.avg_rating,
+  //         CardNumReviews: trainer.num_reviews,
+  //         CardServices: formatCardServices(trainer.card_services),
+  //         DistanceAway: trainer.distance_in_meters,
+  //       };
+  //     }));
 
-      res.status(200).json(transformedTrainers);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
-    }
-  },
+  //     res.status(200).json(transformedTrainers);
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).send('Internal Server Error');
+  //   }
+  // },
 
-  createTrainer: (req, res) => {
+  createTrainer: (req: Request, res: Response) => {
     models.trainersModel.createTrainer(req.body.trainer_id, req.body.account_id, req.body.location, req.body.tags, req.body.equipment, req.body.credentials, req.body.socials, req.body.bio)
-      .then((response) => {
+      .then((response: any) => {
         res.status(201).send(response);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
-      })
+      });
   },
 
-  editTrainer: (req, res) => {
+  editTrainer: (req: Request, res: Response) => {
     models.trainersModel.editTrainer(req.body.trainer_id, req.body.account_id, req.body.location, req.body.tags, req.body.equipment, req.body.credentials, req.body.socials, req.body.bio)
-      .then((response) => {
+      .then((response: any) => {
         res.status(201).send(response);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
-      })
+      });
   },
-
-}
+};

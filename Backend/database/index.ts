@@ -8,11 +8,16 @@ const pool = new Pool({
   port: 5432,
 });
 
-const connection = {
+interface Connection {
+  pool: any; // Adjust the type accordingly
+  query: (...args: any[]) => Promise<any[]>; // Adjust the type accordingly
+}
+
+const connection: Connection = {
   pool,
-  query: (...args) => {
-    return pool.connect().then((client) => {
-      return client.query(...args).then((res) => {
+  query: (...args: any[]) => {
+    return pool.connect().then((client: any) => {
+      return client.query(...args).then((res: any) => {
         client.release();
         return res.rows;
       });
@@ -20,4 +25,17 @@ const connection = {
   },
 };
 
+// const connection = {
+//   pool: any,
+//   query: (...args) => {
+//     return pool.connect().then((client) => {
+//       return client.query(...args).then((res) => {
+//         client.release();
+//         return res.rows;
+//       });
+//     });
+//   },
+// };
+
 module.exports = connection;
+// module.exports = pool;
