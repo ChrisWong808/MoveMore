@@ -55,18 +55,39 @@ module.exports = {
   //   }
   // },
 
+  // createTrainer: (req: Request, res: Response) => {
+  //   console.log('Create Trainer method called in Controller');
+  //   models.trainersModel.createTrainer(req.body.account_id, req.body.location, req.body.tags, req.body.equipment, req.body.credentials, req.body.socials, req.body.bio)
+  //     .then((response: any) => {
+  //       res.status(201).send(response);
+  //     })
+  //     .catch((err: any) => {
+  //       res.status(501).send(err);
+  //     });
+  // },
+
   createTrainer: (req: Request, res: Response) => {
-    models.trainersModel.createTrainer(req.body.trainer_id, req.body.account_id, req.body.location, req.body.tags, req.body.equipment, req.body.credentials, req.body.socials, req.body.bio)
-      .then((response: any) => {
-        res.status(201).send(response);
-      })
-      .catch((err: any) => {
-        res.status(501).send(err);
-      });
+    console.log('Create Trainer method called in Controller');
+    models.trainersModel.createTrainer({
+      account_id: req.body.account_id,
+      location: req.body.location,
+      tags: req.body.tags,
+      equipment: req.body.equipment,
+      credentials: req.body.credentials,
+      socials: req.body.socials,
+      bio: req.body.bio
+    })
+    .then((response: any) => {
+      res.status(201).send(response);
+    })
+    .catch((err: any) => {
+      res.status(501).send(err);
+    });
   },
 
   editTrainer: (req: Request, res: Response) => {
-    models.trainersModel.editTrainer(req.body.trainer_id, req.body.account_id, req.body.location, req.body.tags, req.body.equipment, req.body.credentials, req.body.socials, req.body.bio)
+    const { trainer_id, location, tags, equipment, credentials, socials, bio } = req.body;
+    models.trainersModel.editTrainer(trainer_id, location, tags, equipment, credentials, socials, bio)
       .then((response: any) => {
         res.status(201).send(response);
       })

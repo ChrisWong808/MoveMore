@@ -74,12 +74,46 @@ module.exports = {
   //   }
   // },
 
+  // createTrainer: (trainer: Trainer): Promise<any> => {
+  //   console.log('Create Trainer method called in Model');
+  //   const { account_id, location, tags, equipment, credentials, socials, bio } = trainer;
+  //   return db.query(
+  //     'INSERT INTO trainers (account_id, location, tags, equipment, credentials, socials, bio) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+  //     [account_id, location, tags, equipment, credentials, socials, bio]
+  //   )
+  //     .then((result: any) => {
+  //       return result;
+  //     })
+  //     .catch((err: any) => {
+  //       throw err;
+  //     });
+  // },
+
   createTrainer: (trainer: Trainer): Promise<any> => {
-    const { trainer_id, account_id, location, tags, equipment, credentials, socials, bio } = trainer;
-    return db.query(
-      'INSERT INTO trainers (trainer_id, account_id, location, tags, equipment, credentials, socials, bio) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-      [trainer_id, account_id, location, tags, equipment, credentials, socials, bio]
-    )
+    console.log('Create Trainer method called in Model');
+    const query = `
+      INSERT INTO trainers (
+        account_id,
+        location,
+        tags,
+        equipment,
+        credentials,
+        socials,
+        bio
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    `;
+
+    const parameters: any[] = [
+      trainer.account_id,
+      trainer.location,
+      trainer.tags,
+      trainer.equipment,
+      trainer.credentials,
+      trainer.socials,
+      trainer.bio
+    ];
+
+    return db.query(query, parameters)
       .then((result: any) => {
         return result;
       })
@@ -88,18 +122,17 @@ module.exports = {
       });
   },
 
-  editTrainer: (trainer: Trainer): Promise<any> => {
-    const { trainer_id, account_id, location, tags, equipment, credentials, socials, bio } = trainer;
-    return db.query(
-      'UPDATE trainers SET location = $1, tags = $2, equipment = $3, credentials = $4, socials = $5, bio = $6 WHERE account_id = $7',
-      [location, tags, equipment, credentials, socials, bio, account_id]
-    )
-      .then((result: any) => {
-        return result;
-      })
-      .catch((err: any) => {
-        throw err;
-      });
-  },
+editTrainer: (trainer_id: number, location: string, tags: string[], equipment: string[], credentials: string[], socials: string[], bio: string): Promise<any> => {
+  return db.query(
+    'UPDATE trainers SET location = $1, tags = $2, equipment = $3, credentials = $4, socials = $5, bio = $6 WHERE trainer_id = $7',
+    [location, tags, equipment, credentials, socials, bio, trainer_id]
+  )
+    .then((result: any) => {
+      return result;
+    })
+    .catch((err: any) => {
+      throw err;
+    });
+},
 
 }

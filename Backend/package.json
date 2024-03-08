@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ChrisWong808/MoveMore",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "chai": "^4.3.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",

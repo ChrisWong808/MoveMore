@@ -1,5 +1,6 @@
 // import express, { Request, Response as ExpressResponse, Express } from 'express'; // Rename Response to ExpressResponse
 import express, { Express } from 'express';
+// import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 import { Server as HttpServer } from 'http';
@@ -20,11 +21,13 @@ const io: SocketIOServer = new socketIO.Server(server, {
 // LATER Look at Gaviali app for clustering and load balance as example
 // LATER Look at Blue Ocean Development for socket io
 
-app.use('/', router);
 
+//need middle ware before the routes
+// app.use(bodyParser.json()); // Add this line for body parsing
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev')); // Add morgan middleware
+app.use('/', router);
 
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
