@@ -11,3 +11,6 @@ account_id,username,password,role,first_name,last_name,phone_number,email
 10,username10,password10,client,Client4,Lastname4,4445556666,client4@example.com
 11,username11,password11,trainer,Trainer5,Lastname5,7778889999,trainer5@example.com
 12,username12,password12,client,Client5,Lastname5,1234567890,client5@example.com
+13,username13,password13,trainer,Trainer6,Lastname6,5556667777,trainer6@example.com
+14,username14,password14,client,Client6,Lastname6,9876543210,client6@example.com
+15,username15,password15,trainer,Trainer7,Lastname7,1112223333,trainer7@example.com
