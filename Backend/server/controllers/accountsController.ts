@@ -1,36 +1,43 @@
+import { Request, Response } from 'express';
 const models = require('../models');
 
 module.exports = {
-  getAccount: (req, res) => {
-    models.accountsModel.getAccount (req.params.username)
-      .then((res) => {
-        res.status(200).send(res);
+  getAccount: (req: Request, res: Response) => {
+    models.accountsModel.getAccount (req.body.username, req.body.password)
+      .then((result: any) => {
+        res.status(200).send(result);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       });
   },
 
-  // create will need username, password, is_trainer BOOLEAN, is_client BOOLEAN, first_name, last_name, phone_number
-  // might need to add an edit to update boolean from false to true, if change password as well every Q months
-
-  createAccount: (req, res) => {
-    console.log('create account');
-    models.accountsModel.createAccount(req.body.username, req.body.password, req.body.currentRole, req.body.first_name, req.body.last_name, req.body.phone_number)
-      .then((response) => {
+  createAccount: (req: Request, res: Response) => {
+    console.log('create account in Controller');
+    models.accountsModel.createAccount({
+      username: req.body.username,
+      password: req.body.password,
+      role: req.body.role,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      phone_number: req.body.phone_number,
+      email: req.body.email
+    })
+      .then((response: any) => {
         res.status(201).send(response);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       })
   },
 
-  changeCurrentRole: (req, res) => {
-    models.accountsModel.changeCurrentRole(req.body.currentRole, req.body.username)
-      .then((response) => {
+  changeCurrentRole: (req: Request, res: Response) => {
+    const { role, account_id } = req.body
+    models.accountsModel.changeCurrentRole(role, account_id)
+      .then((response: any) => {
         res.status(201).send(response);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       })
   },

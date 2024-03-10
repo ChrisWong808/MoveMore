@@ -119,7 +119,7 @@ function ClientHomeContent () {
 
     // Set the filtered cards in the state
     setFilteredTrainerCards(filteredCards);
-    console.log('filteredCards:', filteredCards)
+    // console.log('filteredCards:', filteredCards)
   };
 
 

@@ -1,43 +1,70 @@
-const db = require('../database/db');
+// const db = require('../../database');
 
-module.exports = {
-  // client_id,account_id,location,tags,goals,contact_number,email,bio
-  getClient: (account_id) => {
-    return db.query(`SELECT * FROM clients WHERE account_id='${account_id}'`)
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      return err;
-    });
-  },
+interface Client {
+  client_id: number;
+  account_id: number;
+  location: any;
+  tags: string[];
+  goals: string[];
+  bio: string;
+}
 
-  createClient: (client_id,account_id,location,tags,goals,contact_number,email,bio) => {
-    return db.query(
-      // `INSERT INTO clients (client_id,account_id,location,tags,goals,contact_number,email,bio) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
-      'INSERT INTO clients (client_id, account_id, location, tags, goals, contact_number, email, bio) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-      [client_id, account_id, location, tags, goals, contact_number, email, bio]
-      )
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      return err;
-    });
-  },
+module.exports = (db: any) => {
+  return {
+    getClient: (client_id: number): Promise<Client> => {
+      return db.query(`SELECT * FROM clients WHERE client_id='${client_id}'`)
+      .then((result: Client[]) => {
+        return result[0];
+      })
+      .catch((err: any) => {
+        return err;
+      });
+    },
 
-  editClient: (account_id,location,tags,goals,contact_number,email,bio) => {
-    return db.query(
-      // `UPDATE clients SET role = '${location}', tags = '${tags}', goals = '${goals}', contact_number = '${contact_number}', email = '${email}', bio = '${bio}'  WHERE account_id = '${account_id}'`
-      'UPDATE clients SET location = $1, tags = $2, goals = $3, contact_number = $4, email = $5, bio = $6 WHERE account_id = $7',
-      [location, tags, goals, contact_number, email, bio, account_id]
-      )
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      return err;
-    });
-  },
+    createClient: (client: Client): Promise<any> => {
+      const query = `
+        INSERT INTO clients (
+          account_id,
+          location,
+          tags,
+          goals,
+          bio
+        ) VALUES ($1, $2, $3, $4, $5)
+      `;
 
+      const parameters: any[] = [
+        client.account_id,
+        client.location,
+        client.tags,
+        client.goals,
+        client.bio
+      ];
+
+      return db.query(query, parameters)
+        .then((result: any) => {
+          return result;
+        })
+        .catch((err: any) => {
+          throw err;
+        });
+    },
+
+    editClient: ( client_id: number, location: string, tags: string[], goals: string[], bio: string): Promise<any> => {
+      console.log('Updating client tags:', tags); // Log the tags before the query
+      console.log('Checking client id:', client_id);
+      return db.query(
+        'UPDATE clients SET location = $1, tags = $2, goals = $3, bio = $4 WHERE client_id = $5',
+        [location, tags, goals, bio, client_id]
+        )
+      .then((result: any) => {
+        console.log('Database Update Result:', result);
+        return result;
+      })
+      .catch((err: any) => {
+        console.error('Database Update Error:', err);
+        return err;
+      });
+    },
+
+  }
 }

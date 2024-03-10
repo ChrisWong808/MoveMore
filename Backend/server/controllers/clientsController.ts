@@ -1,32 +1,40 @@
+import { Request, Response } from 'express';
 const models = require('../models');
 
 module.exports = {
-  getClient: (req, res) => {
-    models.clientsModel.getClient (req.params.account_id)
-      .then((res) => {
-        res.status(200).send(res);
+  getClient: (req: Request, res: Response) => {
+    models.clientsModel.getClient (req.params.client_id)
+      .then((result: any) => {
+        res.status(200).send(result);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       });
   },
 
-  createClient: (req, res) => {
-    models.clientsModel.createClient(req.body.client_id, req.body.account_id, req.body.location, req.body.tags, req.body.goals, req.body.contact_number, req.body.email, req.body.bio)
-      .then((response) => {
+  createClient: (req: Request, res: Response) => {
+    models.clientsModel.createClient({
+      account_id: req.body.account_id,
+      location: req.body.location,
+      tags: req.body.tags,
+      goals: req.body.goals,
+      bio: req.body.bio
+    })
+      .then((response: any) => {
         res.status(201).send(response);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       })
   },
 
-  editClient: (req, res) => {
-    models.clientsModel.editClient(req.body.account_id, req.body.location, req.body.tags, req.body.goals, req.body.contact_number, req.body.email, req.body.bio)
-      .then((response) => {
+  editClient: (req: Request, res: Response) => {
+    const { client_id, location, tags, goals, bio } = req.body;
+    models.clientsModel.editClient(client_id, location, tags, goals, bio)
+      .then((response: any) => {
         res.status(201).send(response);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       })
   },

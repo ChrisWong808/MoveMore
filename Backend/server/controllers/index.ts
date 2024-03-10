@@ -1,7 +1,7 @@
 export default {
-  // accountsController: require('./accountsController'),
+  accountsController: require('./accountsController'),
   trainersController: require('./trainersController'),
-  // clientsController: require('./clientsController'),
+  clientsController: require('./clientsController'),
   // paymentsController: require('./paymentsController'),
   // reviewsController: require('./reviewsController'),
   // servicesController: require('./servicesController'),

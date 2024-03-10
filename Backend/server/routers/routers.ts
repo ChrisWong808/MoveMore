@@ -5,11 +5,11 @@ import express from 'express';
 const router = express.Router();
 // const controllers = require('./controllers');
 
-// const accountsController = require('../controllers/accountsController');
+const accountsController = require('../controllers/accountsController');
 
-// router.get('/accounts/:account_id', accountsController.getAccount);
-// router.post('/accounts/:account_id', accountsController.createAccount);
-// router.put('/accounts/:account_id', accountsController.changeCurrentRole);
+router.get('/accounts', accountsController.getAccount);
+router.post('/accounts', accountsController.createAccount);
+router.put('/accounts/:account_id', accountsController.changeCurrentRole);
 // // router.delete('/accounts/:account_id', accountsController.deleteAccount);
 
 const trainersController = require('../controllers/trainersController');
@@ -22,11 +22,11 @@ router.post('/trainers', trainersController.createTrainer);
 router.put('/trainers/:trainer_id', trainersController.editTrainer);
 // router.delete('/trainers/:trainer_id', trainersController.deleteTrainer);
 
-// const clientsController = require('../controllers/clientsController');
+const clientsController = require('../controllers/clientsController');
 
-// router.get('/clients/:client_id', clientsController.getClient);
-// router.post('/clients/:client_id', clientsController.createClient);
-// router.put('/clients/:client_id', clientsController.editClient);
+router.get('/clients/:client_id', clientsController.getClient);
+router.post('/clients', clientsController.createClient);
+router.put('/clients/:client_id', clientsController.editClient);
 // // router.delete('/clients/:client_id', clientsController.deleteClient);
 
 // const paymentsController = require('../controllers/paymentsController');

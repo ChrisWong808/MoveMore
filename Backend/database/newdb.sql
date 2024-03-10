@@ -15,7 +15,8 @@ CREATE TABLE accounts (
     UNIQUE (username)
 );
 
-COPY accounts
+--specify to exlude account_id cause it was fking me over
+COPY accounts(username, password, role, first_name, last_name, phone_number, email)
 FROM '/Users/christopherwong/Documents/MoveMore/Backend/database/data/accounts.csv'
 DELIMITER ','
 CSV HEADER;
@@ -35,7 +36,7 @@ CREATE TABLE trainers (
     bio TEXT
 );
 
-COPY trainers
+COPY trainers(account_id, location, tags, equipment, credentials, socials, bio)
 FROM '/Users/christopherwong/Documents/MoveMore/Backend/database/data/trainers.csv'
 DELIMITER ','
 CSV HEADER;
@@ -53,7 +54,7 @@ CREATE TABLE clients (
     bio TEXT
 );
 
-COPY clients
+COPY clients (account_id, location, tags, goals, bio)
 FROM '/Users/christopherwong/Documents/MoveMore/Backend/database/data/clients.csv'
 DELIMITER ','
 CSV HEADER;

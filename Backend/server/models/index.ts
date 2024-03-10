@@ -1,10 +1,12 @@
+const db = require('../../database');
+
 module.exports = {
-  // accountsModel: require('./accountsModel'),
-  trainersModel: require('./trainersModel'),
-  // clientsModel: require('./clientsModel'),
-  // paymentsModel: require('./paymentsModel'),
-  // reviewsModel: require('./reviewsModel'),
-  // servicesModel: require('./servicesModel'),
-  // eventsModel: require('./eventsModel'),
-  // messagesModel: require('./messagesModel')
+  accountsModel: require('./accountsModel')(db),
+  trainersModel: require('./trainersModel')(db),
+  clientsModel: require('./clientsModel')(db),
+  // paymentsModel: require('./paymentsModel')(db),
+  // reviewsModel: require('./reviewsModel')(db),
+  // servicesModel: require('./servicesModel')(db),
+  // eventsModel: require('./eventsModel')(db),
+  // messagesModel: require('./messagesModel')(db)
 }
