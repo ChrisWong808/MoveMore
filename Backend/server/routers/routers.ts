@@ -7,7 +7,10 @@ const router = express.Router();
 
 const accountsController = require('../controllers/accountsController');
 
-router.get('/accounts', accountsController.getAccount);
+//GET --> POST more secure data in body
+// router.get('/accounts', accountsController.getAccount);
+router.get('/accounts/check-username/:username', accountsController.checkUsernameExistence);
+router.post('/accounts/login', accountsController.getAccount);
 router.post('/accounts', accountsController.createAccount);
 router.put('/accounts/:account_id', accountsController.changeCurrentRole);
 // // router.delete('/accounts/:account_id', accountsController.deleteAccount);
@@ -17,14 +20,16 @@ const trainersController = require('../controllers/trainersController');
 //general searching multiple trainers
 // router.get('/trainers', trainersController.getFilteredTrainers);
 //search for specific trainer
-router.get('/trainers/:trainer_id', trainersController.getTrainer);
+// router.get('/trainers/:trainer_id', trainersController.getTrainer);
+router.get('/trainers/:account_id', trainersController.getTrainer);
 router.post('/trainers', trainersController.createTrainer);
 router.put('/trainers/:trainer_id', trainersController.editTrainer);
 // router.delete('/trainers/:trainer_id', trainersController.deleteTrainer);
 
 const clientsController = require('../controllers/clientsController');
 
-router.get('/clients/:client_id', clientsController.getClient);
+// router.get('/clients/:client_id', clientsController.getClient);
+router.get('/clients/:account_id', clientsController.getClient);
 router.post('/clients', clientsController.createClient);
 router.put('/clients/:client_id', clientsController.editClient);
 // // router.delete('/clients/:client_id', clientsController.deleteClient);

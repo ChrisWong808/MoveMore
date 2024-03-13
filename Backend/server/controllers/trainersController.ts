@@ -14,8 +14,17 @@ const formatCardServices = (rawCardServices: any[]) => {
 const models = require('../models');
 
 module.exports = {
+  // getTrainer: (req: Request, res: Response) => {
+  //   models.trainersModel.getTrainer(req.params.trainer_id)
+  //     .then((result: any) => {
+  //       res.status(200).send(result);
+  //     })
+  //     .catch((err: any) => {
+  //       res.status(501).send(err);
+  //     });
+  // },
   getTrainer: (req: Request, res: Response) => {
-    models.trainersModel.getTrainer(req.params.trainer_id)
+    models.trainersModel.getTrainer(req.params.account_id)
       .then((result: any) => {
         res.status(200).send(result);
       })

@@ -12,6 +12,19 @@ module.exports = {
       });
   },
 
+  checkUsernameExistence: (req: Request, res: Response) => {
+    const { username } = req.params;
+    models.accountsModel.checkUsernameExistence(username)
+      .then((exists: boolean) => {
+        res.json({ exists });
+      })
+      .catch((err: any) => {
+        console.error('Error checking username existence in controller:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  },
+
+
   createAccount: (req: Request, res: Response) => {
     console.log('create account in Controller');
     models.accountsModel.createAccount({

@@ -2,8 +2,17 @@ import { Request, Response } from 'express';
 const models = require('../models');
 
 module.exports = {
+  // getClient: (req: Request, res: Response) => {
+  //   models.clientsModel.getClient (req.params.client_id)
+  //     .then((result: any) => {
+  //       res.status(200).send(result);
+  //     })
+  //     .catch((err: any) => {
+  //       res.status(501).send(err);
+  //     });
+  // },
   getClient: (req: Request, res: Response) => {
-    models.clientsModel.getClient (req.params.client_id)
+    models.clientsModel.getClient (req.params.account_id)
       .then((result: any) => {
         res.status(200).send(result);
       })

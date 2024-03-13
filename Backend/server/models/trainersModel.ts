@@ -14,8 +14,18 @@ interface Trainer {
 
 module.exports = (db: any) => {
   return {
-    getTrainer: (trainer_id: number): Promise<Trainer> => {
-      return db.query(`SELECT * FROM trainers WHERE trainer_id = $1`, [trainer_id])
+    // getTrainer: (trainer_id: number): Promise<Trainer> => {
+    //   return db.query(`SELECT * FROM trainers WHERE trainer_id = $1`, [trainer_id])
+    //     .then((result: Trainer[]) => {
+    //       return result[0]; // Assuming you want to return a single trainer
+    //     })
+    //     .catch((err: any) => {
+    //       throw err;
+    //     });
+    // },
+
+    getTrainer: (account_id: number): Promise<Trainer> => {
+      return db.query(`SELECT * FROM trainers WHERE account_id = $1`, [account_id])
         .then((result: Trainer[]) => {
           return result[0]; // Assuming you want to return a single trainer
         })

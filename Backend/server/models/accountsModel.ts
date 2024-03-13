@@ -27,6 +27,27 @@ module.exports = (db: any) => {
     });
   },
 
+  checkUsernameExistence: (username: string) => {
+    console.log('Check Username Existence method called in Model');
+    const query = 'SELECT EXISTS (SELECT 1 FROM accounts WHERE username = $1) AS exists';
+    const parameters = [username];
+
+    return db.query(query, parameters)
+      .then((result: any) => {
+        if (result.rows && result.rows.length > 0) {
+          return result.rows[0].exists;
+        } else {
+          return false; // Assuming no rows means username doesn't exist
+        }
+      })
+      .catch((err: any) => {
+        console.error('Error checking username existence in model:', err);
+        throw err;
+      });
+  },
+
+
+
   createAccount: (account: Account): Promise<any> => {
     console.log('Create Account method called in Model');
     const query = `

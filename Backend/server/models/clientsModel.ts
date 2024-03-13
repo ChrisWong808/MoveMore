@@ -11,8 +11,18 @@ interface Client {
 
 module.exports = (db: any) => {
   return {
-    getClient: (client_id: number): Promise<Client> => {
-      return db.query(`SELECT * FROM clients WHERE client_id='${client_id}'`)
+    // getClient: (client_id: number): Promise<Client> => {
+    //   return db.query(`SELECT * FROM clients WHERE client_id='${client_id}'`)
+    //   .then((result: Client[]) => {
+    //     return result[0];
+    //   })
+    //   .catch((err: any) => {
+    //     return err;
+    //   });
+    // },
+
+    getClient: (account_id: number): Promise<Client> => {
+      return db.query(`SELECT * FROM clients WHERE account_id='${account_id}'`)
       .then((result: Client[]) => {
         return result[0];
       })
