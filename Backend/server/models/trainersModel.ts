@@ -112,6 +112,7 @@ module.exports = (db: any) => {
           socials,
           bio
         ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING trainer_id, account_id, location, tags, equipment, credentials, socials, bio
       `;
 
       const parameters: any[] = [
@@ -126,7 +127,7 @@ module.exports = (db: any) => {
 
       return db.query(query, parameters)
         .then((result: any) => {
-          return result;
+          return result[0];
         })
         .catch((err: any) => {
           throw err;

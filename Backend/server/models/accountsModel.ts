@@ -46,8 +46,6 @@ module.exports = (db: any) => {
       });
   },
 
-
-
   createAccount: (account: Account): Promise<any> => {
     console.log('Create Account method called in Model');
     const query = `
@@ -60,6 +58,7 @@ module.exports = (db: any) => {
         phone_number,
         email
       ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING account_id, username, role, first_name, last_name, phone_number, email
     `;
 
     const parameters: any[] = [
@@ -74,9 +73,10 @@ module.exports = (db: any) => {
 
     return db.query(query, parameters)
       .then((result: any) => {
-        return result;
+        return result[0];
       })
       .catch((err: any) => {
+        console.error('Error executing query:', err);
         throw err;
       });
   },

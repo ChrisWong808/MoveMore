@@ -40,6 +40,7 @@ module.exports = (db: any) => {
           goals,
           bio
         ) VALUES ($1, $2, $3, $4, $5)
+        RETURNING client_id, account_id, location, tags, goals, bio
       `;
 
       const parameters: any[] = [
@@ -49,10 +50,12 @@ module.exports = (db: any) => {
         client.goals,
         client.bio
       ];
-
+      console.log('inside create client model')
+      console.log('query:', query)
+      console.log('parameters:', parameters)
       return db.query(query, parameters)
         .then((result: any) => {
-          return result;
+          return result[0];
         })
         .catch((err: any) => {
           throw err;

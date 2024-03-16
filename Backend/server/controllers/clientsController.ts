@@ -30,6 +30,8 @@ module.exports = {
       bio: req.body.bio
     })
       .then((response: any) => {
+        console.log('inside create client controller')
+        console.log('Request.body', req.body)
         res.status(201).send(response);
       })
       .catch((err: any) => {

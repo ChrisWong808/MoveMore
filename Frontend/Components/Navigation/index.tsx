@@ -162,15 +162,16 @@
 // //   );
 // // }
 
-
 import React, { useState, useEffect } from 'react';
 import { Buttons, General } from "../../assets/css"
 import axios from 'axios';
 import { LogBox } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { useNavigation, DrawerActions } from '@react-navigation/native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { useNavigation, DrawerActions } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Move useNavigation here
+import { DrawerActions } from '@react-navigation/native'; // Remove useNavigation from here
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, TextInput, Text, View, Button, Alert, Image } from 'react-native';
+import { StyleSheet, TextInput, Text, ScrollView, View, Button, Alert, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core']);
@@ -180,16 +181,19 @@ import ClientHome from "../Client/ClientHome"
 const Stack = createStackNavigator();
 
 export default function RootNavigation() {
-  const [userAccId, setUserAccId] = useState(0);
-  const [userTrainerId, setUserTrainerId] = useState(0);
-  const [userClientId, setUserClientId] = useState(0);
+  // const [userAccId, setUserAccId] = useState(0);
+  // const [userTrainerId, setUserTrainerId] = useState(0);
+  // const [userClientId, setUserClientId] = useState(0);
+  // data hold locally
   const [userAccount, setUserAccount] = useState({});
   const [userTrainer, setUserTrainer] = useState({});
   const [userClient, setUserClient] = useState({});
+  // login data
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [login, setLogin] = useState(false);
   const [role, setRole] = useState('');
+  // create account data
   const [createUsername, setCreateUsername] = useState('');
   const [createPassword, setCreatePassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -199,6 +203,73 @@ export default function RootNavigation() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [tempRole, setTempRole] = useState('client');
   const [termsConditions, setTermsConditions] = (useState(false));
+  const [isNavigationReady, setIsNavigationReady] = useState(false);
+  const presetTags = ['Aikido', 'Airsoft', 'Archery', 'Badminton', 'Baseball', 'Basketball', 'Biking', 'Bootcamp', 'Bowling', 'Boxing', 'Brazilian jiu-jitsu', 'Canoeing', 'Cross fit', 'Dancing', 'Diving', 'Dogs', 'Fishing', 'Football', 'Free Running', 'Golf', 'Gymnastics', 'Hiking', 'Hockey', 'Hunting', 'Ice Hockey', 'Ice Skating', 'Judo', 'Karate', 'Kayaking', 'Kickboxing', 'Kite surfing', 'Lacrosse', 'Marathon', 'Mixed Martial Arts', 'Muay Thai', 'Other', 'Paintball', 'Parkour', 'Pickleball', 'Ping Pong', 'Pokemon Go', 'Polo', 'Racquetball', 'Rafting', 'Rock Climbing', 'Roller Blading', 'Roller Skating', 'Rowing', 'Rugby', 'Running', 'Sailing', 'Scootering', 'Scuba Diving', 'Skateboarding', 'Skiing', 'Slacklining', 'Sledding', 'Snorkeling', 'Snowboarding', 'Soccer', 'Squash', 'Stand up paddleboard', 'Surfing', 'Swimming', 'Tennis', 'Triathlon', 'Ultimate Frisbee', 'Volleyball', 'Water Polo', 'Weight lifting', 'Windsurfing', 'Wrestling', 'Yoga', 'Zumba']
+  // create trainer data
+  const [trainerLocation, setTrainerLocation] = useState('SRID=4326;POINT(-73.935242 40.730610)')
+  const [trainerTags, setTrainerTags] = useState([] as string[])
+  const [equipment, setEquipment] = useState([])
+  const [credentials, setCredentials] = useState([])
+  const [socials, setSocials] = useState([])
+  const [trainerBio, setTrainerBio] = useState('')
+
+  // create client data
+  const [clientLocation, setClientLocation] = useState('SRID=4326;POINT(-73.935242 40.730610)')
+  const [clientTags, setClientTags] = useState([] as string[])
+  const [goals, setGoals] = useState([]);
+  const [clientBio, setClientBio] = useState('')
+
+  const styles = StyleSheet.create({
+    input: {
+      height: 40,
+      borderColor: 'gray',
+      borderWidth: 1,
+      marginVertical: 10,
+      paddingHorizontal: 10
+    },
+    label: {
+      marginTop: 10,
+      marginBottom: 5
+    },
+    scrollViewContent: {
+      // Ensure that the height is enough to accommodate all your components
+      minHeight: '100%' // or a specific height
+    },
+    tagListContainer: {
+      // So you can see all preset tags all at once and not 1 line long scroll
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start', // Align tags to the start (left) of the container
+      marginBottom: 10, // Add some marginBottom for spacing
+    },
+    tagsNoEdit: {
+      // works because text
+      margin: 5,
+      padding: 5,
+      fontSize: 12, // Default font size
+      borderWidth: 1,
+      borderRadius: 5,
+    },
+    tagsWEdit: {
+      // doesn't do anything cause button
+      margin: 5,
+      padding: 5,
+      fontSize: 8, // Smaller font size for editing mode
+      borderWidth: 1,
+      borderRadius: 5,
+      alignSelf: 'flex-start'
+    }
+  })
+
+  // const navigation = useNavigation();
+  // console.log('useNavigation:', useNavigation)
+
+  useEffect(() => {
+    // Set isNavigationReady to true when navigation is ready
+    setIsNavigationReady(true);
+  }, []);
+
+
 
   function onLogin () {
     // if (username === '123' && password === '123') {
@@ -264,15 +335,21 @@ export default function RootNavigation() {
   function toggleTempRole () {
     if (tempRole === 'client') {
       setTempRole('trainer')
+      console.log('tempRole: ', tempRole)
     } else {
       setTempRole('client')
+      console.log('tempRole: ', tempRole)
     }
   }
 
   function toggleTerms () {
     setTermsConditions(!termsConditions)
   }
-  const handleCreateAcc = () => {
+  const handleCreateAcc = (
+    // CreateTrainer: () => void,
+    // CreateClient: () => void
+    CreateTrainer: any, CreateClient: any
+  ) => {
     if (createPassword !== confirmPassword) {
       Alert.alert('Passwords do not match');
     } else if (!termsConditions) {
@@ -295,11 +372,19 @@ export default function RootNavigation() {
               phone_number: phoneNumber,
               email: createEmail,
             };
-
+            console.log('tempRole inside CreateAccount:', tempRole)
+            console.log('Create Trainer func inside CreateAccount', CreateTrainer)
+            console.log('Create Client func inside CreateAccount', CreateClient)
             axios.post('http://localhost:3000/accounts', createData)
               .then((accountRes) => {
-                setUserAccount(accountRes.data);
                 console.log('Account created successfully:', accountRes.data);
+                setUserAccount(accountRes.data);
+                setRole(tempRole);
+                if (tempRole === 'trainer') {
+                  CreateTrainer();
+                } else if (tempRole === 'client') {
+                  CreateClient();
+                }
                 // Additional actions or navigation can be performed here
               })
               .catch((accountErr) => {
@@ -312,8 +397,101 @@ export default function RootNavigation() {
         });
     }
   };
+  const handleClientTags = (tag: string) => {
+    if (clientTags.includes(tag)) {
+    // If the tag is already client, remove it
+      setClientTags(clientTags.filter((clientTag) => clientTag !== tag))
+    } else {
+    // If the tag is not client, add it
+      setClientTags([...clientTags, tag])
+    }
+  }
 
-
+  function handleCreateClient () {
+    const createClientData = {
+      account_id: userAccount.account_id,
+      location: clientLocation,
+      tags: clientTags,
+      goals: goals,
+      bio: clientBio,
+    };
+    console.log('client data to send:', createClientData)
+    axios.post('http://localhost:3000/clients', createClientData)
+      .then((clientRes) => {
+        const clientData = clientRes.data;
+        console.log('Client data created successfully:', clientData);
+        const emptyTrainer = {
+          account_id: userAccount.account_id,
+          location: trainerLocation,
+          tags: trainerTags,
+          equipment: equipment,
+          credentials: credentials,
+          socials: socials,
+          bio: trainerBio,
+        };
+        axios.post('http://localhost:3000/trainers', emptyTrainer)
+          .then((trainerRes) => {
+            const trainerData = trainerRes.data;
+            console.log('Empty trainer data created successfully:', trainerData);
+            setUserClient(clientData);
+            setUserTrainer(trainerData);
+            setLogin(true);
+          })
+          .catch((trainerErr) => {
+            console.error('Error creating empty trainer data:', trainerErr);
+          });
+      })
+      .catch((clientErr) => {
+        console.error('Error creating client data:', clientErr);
+      });
+  }
+  const handleTrainerTags = (tag: string) => {
+    if (trainerTags.includes(tag)) {
+    // If the tag is already trainer, remove it
+      setTrainerTags(trainerTags.filter((trainerTag) => trainerTag !== tag))
+    } else {
+    // If the tag is not trainer, add it
+      setTrainerTags([...trainerTags, tag])
+    }
+  }
+  function handleCreateTrainer() {
+    const createTrainerData = {
+      account_id: userAccount.account_id,
+      location: trainerLocation,
+      tags: trainerTags,
+      equipment: equipment,
+      credentials: credentials,
+      socials: socials,
+      bio: trainerBio,
+    };
+    console.log('trainer data to send:', createTrainerData)
+    axios.post('http://localhost:3000/trainers', createTrainerData)
+      .then((trainerRes) => {
+        const trainerData = trainerRes.data;
+        console.log('Trainer data created successfully:', trainerData);
+        const emptyClient = {
+          account_id: userAccount.account_id,
+          location: clientLocation,
+          tags: clientTags,
+          goals: goals,
+          bio: clientBio,
+        };
+        axios.post('http://localhost:3000/clients', emptyClient)
+          .then((clientRes) => {
+            const clientData = clientRes.data;
+            console.log('Empty client data created successfully:', clientData);
+            setUserClient(clientData);
+            setUserTrainer(trainerData);
+            setLogin(true);
+          })
+          .catch((clientErr) => {
+            console.error('Error creating empty client data:', clientErr);
+          });
+      })
+      .catch((trainerErr) => {
+        console.error('Error creating trainer data:', trainerErr);
+      });
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -325,8 +503,9 @@ export default function RootNavigation() {
           )
           // <Stack.Screen options={{ headerShown: false }} name="TrainerHome" component={TrainerHome} />
         ) : (
+          <>
           <Stack.Screen name="Login">
-            {() => (
+            {({ navigation }) => (
               <View style={General.text}>
                 <Text>Welcome</Text>
                 <Text>Login</Text>
@@ -350,69 +529,166 @@ export default function RootNavigation() {
                   title="Login"
                   color="#841584"
                 />
-                <View>
-                  <Text></Text>
-                </View>
-                <View>
-                  <Text>Create Account</Text>
-                  <TextInput
-                  onChangeText={(text) => setCreateUsername(text)}
-                  value={createUsername}
-                  placeholder="Enter Username"
-                  />
-                  <TextInput
-                  onChangeText={(text) => setCreatePassword(text)}
-                  value={createPassword}
-                  placeholder="Enter Password"
-                  />
-                  <TextInput
-                  onChangeText={(text) => setConfirmPassword(text)}
-                  value={confirmPassword}
-                  placeholder="Confirm Password"
-                  />
-                  <TextInput
-                  onChangeText={(text) => setFirstName(text)}
-                  value={firstName}
-                  placeholder="Enter First Name"
-                  />
-                  <TextInput
-                  onChangeText={(text) => setLastName(text)}
-                  value={lastName}
-                  placeholder="Enter Last Name"
-                  />
-                  <TextInput
-                  onChangeText={(text) => setCreateEmail(text)}
-                  value={createEmail}
-                  placeholder="Enter Email"
-                  />
-                  <TextInput
-                  onChangeText={(text) => setPhoneNumber(text)}
-                  value={phoneNumber}
-                  placeholder="Enter Phone Number"
-                  />
-                </View>
-                <Text>Are you a Client or a Trainer?</Text>
                 <Button
-                  onPress={toggleTempRole}
-                  title={tempRole}
-                  color="#841584"
-                />
-                <Text>Agree to our Terms and Conditions</Text>
-                <Button
-                  onPress={toggleTerms}
-                  title={termsConditions ? 'True' : 'False'}
-                  color="#841584"
-                />
-                <Button
-                  onPress={handleCreateAcc}
-                  title='Create Account'
-                  color="#841584"
-                />
+                onPress={() => navigation.navigate('CreateAccount')}
+                title="Sign Up Now"
+                color="#841584"
+              />
               </View>
-
             )}
           </Stack.Screen>
+          <Stack.Screen name="CreateAccount">
+          {({ navigation }) => (
+            <View style={General.text}>
+              <Text>Create Account</Text>
+              <TextInput
+                onChangeText={(text) => setCreateUsername(text)}
+                value={createUsername}
+                placeholder="Enter Username"
+              />
+              <TextInput
+                onChangeText={(text) => setCreatePassword(text)}
+                value={createPassword}
+                placeholder="Enter Password"
+              />
+              <TextInput
+                onChangeText={(text) => setConfirmPassword(text)}
+                value={confirmPassword}
+                placeholder="Confirm Password"
+              />
+              <TextInput
+                onChangeText={(text) => setFirstName(text)}
+                value={firstName}
+                placeholder="Enter First Name"
+              />
+              <TextInput
+                onChangeText={(text) => setLastName(text)}
+                value={lastName}
+                placeholder="Enter Last Name"
+              />
+              <TextInput
+                onChangeText={(text) => setCreateEmail(text)}
+                value={createEmail}
+                placeholder="Enter Email"
+              />
+              <TextInput
+                onChangeText={(text) => setPhoneNumber(text)}
+                value={phoneNumber}
+                placeholder="Enter Phone Number"
+              />
+              <Text>Are you a Client or a Trainer?</Text>
+              <Button
+                onPress={toggleTempRole}
+                title={tempRole}
+                color="#841584"
+              />
+              <Text>Agree to our Terms and Conditions</Text>
+              <Button
+                onPress={toggleTerms}
+                title={termsConditions ? 'True' : 'False'}
+                color="#841584"
+              />
+            <Button
+              onPress={() => {
+                console.log('tempRole on button press:', tempRole);
+                handleCreateAcc(
+                  () => navigation.navigate('CreateTrainer'),
+                  () => navigation.navigate('CreateClient')
+                );
+              }}
+              title="Handle Create Account"
+              color="#841584"
+            />
+            </View>
+          )}
+        </Stack.Screen>
+
+        <Stack.Screen name="CreateTrainer">
+          {() => (
+            // <View style={General.text}>
+                  <ScrollView contentContainerStyle={[styles.scrollViewContent]}>
+              <Text>Create Your Trainer Profile</Text>
+              <Text>Select Services Provided</Text>
+              <View style={styles.tagListContainer}>
+                {presetTags.map((tag, index) => (
+                  <Button
+                    key={index}
+                    title={tag}
+                    onPress={() => { handleTrainerTags(tag) }}
+                    color={trainerTags.includes(tag) ? 'green' : 'gray'}
+                    titleStyle={styles.tagsWEdit}
+                  />
+                ))}
+              </View>
+              <TextInput
+                onChangeText={(text) => setEquipment(text.split(','))}
+                value={equipment.join(',')}
+                placeholder="Enter Equipment"
+              />
+              <TextInput
+                onChangeText={(text) => setCredentials(text.split(','))}
+                value={credentials.join(',')}
+                placeholder="Enter Credentials"
+              />
+              <TextInput
+                onChangeText={(text) => setSocials(text.split(','))}
+                value={socials.join(',')}
+                placeholder="Enter Socials"
+              />
+              <TextInput
+                onChangeText={(text) => setTrainerBio(text)}
+                value={trainerBio}
+                placeholder="Enter Bio"
+              />
+              <Button
+                onPress={handleCreateTrainer}
+                title="Create Trainer"
+                color="#841584"
+              />
+             {/* </View> */}
+            </ScrollView>
+          )}
+        </Stack.Screen>
+
+        <Stack.Screen name="CreateClient">
+          {() => (
+            // <View style={General.text}>
+            <ScrollView contentContainerStyle={[styles.scrollViewContent]}>
+              <Text>Create Your Client Profile</Text>
+              <Text> Select Your Interests </Text>
+              <View style={styles.tagListContainer}>
+                {presetTags.map((tag, index) => (
+                  <Button
+                    key={index}
+                    title={tag}
+                    onPress={() => { handleClientTags(tag) }}
+                    color={clientTags.includes(tag) ? 'green' : 'gray'}
+                    titleStyle={styles.tagsWEdit}
+                  />
+                ))}
+              </View>
+              <TextInput
+                onChangeText={(text) => setGoals(text.split(','))}
+                value={goals.join(',')}
+                placeholder="Enter Goals"
+              />
+              <TextInput
+                onChangeText={(text) => setClientBio(text)}
+                value={clientBio}
+                placeholder="Enter Bio"
+              />
+              <Button
+                onPress={handleCreateClient}
+                title="Create Client"
+                color="#841584"
+              />
+            {/* </View> */}
+            </ScrollView>
+          )}
+        </Stack.Screen>
+        </>
         )}
+
       </Stack.Navigator>
     </NavigationContainer>
   );
