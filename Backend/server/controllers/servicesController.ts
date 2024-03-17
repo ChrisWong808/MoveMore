@@ -1,43 +1,61 @@
+import { Request, Response } from 'express';
 const models = require('../models');
 
 module.exports = {
-  getServices: (req, res) => {
+  getServices: (req: Request, res: Response) => {
     models.servicesModel.getServices (req.params.trainer_id)
-      .then((res) => {
-        res.status(200).send(res);
+      .then((result: any) => {
+        res.status(200).send(result);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       });
   },
 
 
-  createService: (req, res) => {
-    models.servicesModel.createService(req.body.service_id, req.body.trainer_id, req.body.activity, req.body.difficulty, req.body.cost, req.body.duration, req.body.location, req.body.description)
-      .then((response) => {
-        res.status(201).send(response);
+  createService: (req: Request, res: Response) => {
+    models.servicesModel.createService({
+      trainer_id: req.body.trainer_id,
+      activity: req.body.activity,
+      difficulty: req.body.difficulty,
+      cost: req.body.cost,
+      duration: req.body.duration,
+      location: req.body.location,
+      description: req.body.description
+    })
+      .then((result: any) => {
+        res.status(201).send(result);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       })
   },
 
-  editService: (req, res) => {
-    models.servicesModel.editService(req.params.service_id, req.params.trainer_id, req.params.activity, req.params.difficulty, req.params.cost, req.params.duration, req.params.location, req.params.description)
-      .then((response) => {
-        res.status(201).send(response);
-      })
-      .catch((err) => {
-        res.status(501).send(err);
-      })
+  editService: (req: Request, res: Response) => {
+    const service_id: number = parseInt(req.params.service_id); // Parse the service_id from the route URL
+    models.servicesModel.editService(service_id, {
+      trainer_id: req.body.trainer_id,
+      activity: req.body.activity,
+      difficulty: req.body.difficulty,
+      cost: req.body.cost,
+      duration: req.body.duration,
+      location: req.body.location,
+      description: req.body.description
+    })
+    .then((result: any) => {
+      res.status(201).send(result);
+    })
+    .catch((err: any) => {
+      res.status(501).send(err);
+    });
   },
 
-  deleteService: (req, res) => {
+  deleteService: (req: Request, res: Response) => {
     models.servicesModel.deleteService (req.params.service_id)
-      .then((res) => {
-        res.status(200).send(res);
+      .then((result: any) => {
+        res.status(200).send(result);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         res.status(501).send(err);
       });
   },

@@ -41,20 +41,20 @@ router.put('/clients/:client_id', clientsController.editClient);
 // router.post('/payments/trainer/:trainer_id', paymentsController.createTrainerPayment);
 // router.post('/payments/client/:client_id', paymentsController.createClientPayment);
 
-// const reviewsController = require('../controllers/reviewsController');
+const reviewsController = require('../controllers/reviewsController');
 
-// router.get('/reviews/trainer/:trainer_id', reviewsController.getTrainerReviews);
-// router.get('/reviews/client/:client_id', reviewsController.getClientReviews);
-// router.post('/reviews/trainer/:trainer_id', reviewsController.createTrainerReview);
-// router.post('/reviews/client/:client_id', reviewsController.createClientReview);
+router.get('/reviews/trainer/:trainer_id', reviewsController.getTrainerReviews);
+router.get('/reviews/client/:client_id', reviewsController.getClientReviews);
+router.post('/reviews/trainer/:trainer_id', reviewsController.createTrainerReview);
+router.post('/reviews/client/:client_id', reviewsController.createClientReview);
 
 
-// const servicesController = require('../controllers/servicesController');
+const servicesController = require('../controllers/servicesController');
 
-// router.get('/services/:trainer_id', servicesController.getServices);
-// router.post('/services/:trainer_id', servicesController.createService);
-// router.put('/services/:trainer_id', servicesController.editService);
-// router.delete('/services/:trainer_id', servicesController.deleteService);
+router.get('/services/:trainer_id', servicesController.getServices);
+router.post('/services/:trainer_id', servicesController.createService);
+router.put('/services/:service_id', servicesController.editService);
+router.delete('/services/:service_id', servicesController.deleteService);
 
 // const eventsController = require('../controllers/eventsController');
 

@@ -107,7 +107,7 @@ CREATE TABLE trainer_reviews (
     review_date DATE NOT NULL
 );
 
-COPY trainer_reviews
+COPY trainer_reviews (trainer_id, client_id, service_name, rating, review_text, review_date)
 FROM '/Users/christopherwong/Documents/MoveMore/Backend/database/data/trainer_reviews.csv'
 DELIMITER ','
 CSV HEADER;
@@ -126,7 +126,7 @@ CREATE TABLE client_reviews (
     review_date DATE NOT NULL
 );
 
-COPY client_reviews
+COPY client_reviews(trainer_id, client_id, service_name, rating, review_text, review_date)
 FROM '/Users/christopherwong/Documents/MoveMore/Backend/database/data/client_reviews.csv'
 DELIMITER ','
 CSV HEADER;
@@ -146,7 +146,7 @@ CREATE TABLE services (
     description TEXT
 );
 
-COPY services
+COPY services(trainer_id, activity, difficulty, cost, duration, location, description)
 FROM '/Users/christopherwong/Documents/MoveMore/Backend/database/data/services.csv'
 DELIMITER ','
 CSV HEADER;

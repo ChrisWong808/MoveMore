@@ -1,6 +1,6 @@
-service_id,trainer_id,activity,difficulty,cost,duration,location,description
-1,1,'Strength Training','Intermediate',60.00,60,'Gym','Customized strength training program for individuals of all fitness levels.'
-2,5,'Running Sessions','Intermediate',40.00,45,'Outdoor','Personalized running sessions tailored to improve endurance and technique.'
-3,7,'HIIT Workouts','Advanced',55.00,30,'Gym','High-intensity interval training for maximum calorie burn and fitness improvement.'
-4,9,'Pilates Classes','Beginner',50.00,60,'Studio','Group Pilates classes focusing on core strength and flexibility.'
-5,11,'Kickboxing Sessions','Intermediate',65.00,45,'Martial Arts Studio','Energetic kickboxing sessions suitable for all fitness levels.'
+trainer_id,activity,difficulty,cost,duration,location,description
+1,'Strength Training','Intermediate',60.00,60,'Gym','Customized strength training program for individuals of all fitness levels.'
+5,'Running Sessions','Intermediate',40.00,45,'Outdoor','Personalized running sessions tailored to improve endurance and technique.'
+7,'HIIT Workouts','Advanced',55.00,30,'Gym','High-intensity interval training for maximum calorie burn and fitness improvement.'
+9,'Pilates Classes','Beginner',50.00,60,'Studio','Group Pilates classes focusing on core strength and flexibility.'
+11,'Kickboxing Sessions','Intermediate',65.00,45,'Martial Arts Studio','Energetic kickboxing sessions suitable for all fitness levels.'
